@@ -9,7 +9,12 @@
     <groupId>com.yourcompany</groupId>
     <artifactId>your-artifact-id</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>Local-App</module>
+        <module>Manager</module>
+        <module>Worker</module>
+    </modules>
 
     <!-- Dependencies -->
     <dependencies>

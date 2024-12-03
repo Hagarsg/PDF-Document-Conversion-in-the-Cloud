@@ -1,14 +1,19 @@
+import software.amazon.awssdk.services.ec2.model.Instance;
+import software.amazon.awssdk.services.sqs.model.*;
+
+
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.time.Instant;
+import java.util.List;
+import java.util.Scanner;
 
 
-import API.AWS;
 
 public class LocalApplication {
 
     final static AWS aws = AWS.getInstance();
-    private static String i;
     private static String inputQueueUrl;
     private static String summaryQueueUrl;
     private static String inFilePath;
@@ -17,6 +22,8 @@ public class LocalApplication {
 
 
     public static void main(String[] args) {// args = [inFilePath, outFilePath, tasksPerWorker, -t (terminate, optional)]
+        args = new String[]{"/Users/hagarsamimigolan/Downloads/input-sample-1 (1).txt",
+                "/Users/hagarsamimigolan/GitProject/PDF-Document-Conversion-in-the-Cloud/Local-App/target/outPutFile", "10"};
         if (args.length < 3) {
             System.out.println("Usage: LocalApplication <inputFilePath> <outputFilePath> [tasksPerWorker] [-t]");
             return;
@@ -33,7 +40,6 @@ public class LocalApplication {
         
         try {
             setup();
-
             // upload input file to S3
             aws.uploadFileToS3(keyPath, new File(inFilePath)); 
 
@@ -50,7 +56,7 @@ public class LocalApplication {
 
             // download summary from s3
             File summaryFile = new File("local-summary.txt");
-            aws.downloadFileFromS3(summary, summaryFile);
+            aws.downloadFileFromS3(summary.body(), summaryFile);
 
             // creates html output file
             summaryToHTML(summaryFile);
@@ -73,18 +79,23 @@ public class LocalApplication {
 
     //Create Buckets, Create Queues, Upload JARs to S3
     private static void setup() {
-        ArrayList<Instance> arr = aws.getAllInstancesWithLabel(aws.Label.Manager);
-        if (arr.isEmpty) { // if manager is not active
-            aws.createBucketIfNotExists("yh-bucket");
-            inputQueueUrl = aws.createQueue("inputQueue");
-            for (int i = 1; i <= aws.getSummaryLimit(); i++) {
-                String name = "summaryQueue_" + i;
-                aws.createQueue(name);
+        try {
+            List<Instance> list = aws.getAllInstancesWithLabel(AWS.Label.Manager);
+            if (list.isEmpty()) { // if manager is not active
+                aws.createBucketIfNotExists(aws.getBucketName());
+                inputQueueUrl = aws.createQueue("inputQueue");
+                for (int i = 1; i <= aws.getSummaryLimit(); i++) {
+                    String name = "summaryQueue_" + i;
+                    aws.createQueue(name);
+                }
+                String script = "#!/bin/bash\n" +
+                        "exec > /var/log/user-data.log 2>&1\n" +
+                        "java -jar /home/ec2-user/manager.jar\n";
+                aws.createEC2(script, "Manager", 1); // create manager EC2
             }
-            String script = "#!/bin/bash\n" +
-                "exec > /var/log/user-data.log 2>&1\n" +
-                "java -jar /home/ec2-user/manager.jar\n";
-            aws.createEC2(script, "Manager", 1); // create manager ec2
+        } catch (InterruptedException e) {
+            System.err.println("Error occurred while retrieving instances: " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 

@@ -1,7 +1,5 @@
-package API;
 
 import software.amazon.awssdk.core.ResponseBytes;
-import software.amazon.awssdk.core.exception.AbortedException;
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
@@ -12,25 +10,18 @@ import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
-import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.SendMessageRequest;
-import com.amazonaws.services.sqs.model.AmazonSQSException;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class AWS {
 
     public final String IMAGE_AMI = "ami-08902199a8aa0bc09";
     public Region region1 = Region.US_WEST_2;
-    // public Region region2 = Region.US_EAST_1;
+    public Region region2 = Region.US_EAST_1;
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
@@ -44,26 +35,25 @@ public class AWS {
     private AWS() {
         s3 = S3Client.builder().region(region1).build();
         sqs = SqsClient.builder().region(region1).build();
-        ec2Region1 = Ec2Client.builder().region(region1).build();
-        // ec2Region2 = Ec2Client.builder().region(region2).build();
-        bucketName = "yh-bucket";
+        ec2 = Ec2Client.builder().region(region1).build();
+        bucketName = "yuval-hagar-best-bucket";
     }
 
-  public static AWS getInstance() {
-    if (instance == null) {
-        instance = new AWS();
+    public static AWS getInstance() {
+        if (instance == null) {
+            instance = new AWS();
+        }
+        return instance;
     }
-    return instance;
-  }
 
 
-//////////////////////////////////////////  EC2
+    //////////////////////////////////////////  EC2
 
-  // EC2
+    // EC2
     public String createEC2(String script, String tagName, int numberOfInstances) {
         RunInstancesRequest runRequest = (RunInstancesRequest) RunInstancesRequest.builder()
                 .instanceType(InstanceType.M4_LARGE)
-                .imageId(ami)
+                .imageId(IMAGE_AMI)
                 .maxCount(numberOfInstances)
                 .minCount(1)
                 .keyName("vockey")
@@ -76,7 +66,7 @@ public class AWS {
 
         String instanceId = response.instances().get(0).instanceId();
 
-        software.amazon.awssdk.services.ec2.model.Tag tag = Tag.builder()
+        Tag tag = Tag.builder()
                 .key("Name")
                 .value(tagName)
                 .build();
@@ -90,7 +80,7 @@ public class AWS {
             ec2.createTags(tagRequest);
             System.out.printf(
                     "[DEBUG] Successfully started EC2 instance %s based on AMI %s\n",
-                    instanceId, ami);
+                    instanceId, IMAGE_AMI);
 
         } catch (Ec2Exception e) {
             System.err.println("[ERROR] " + e.getMessage());
@@ -110,7 +100,8 @@ public class AWS {
         // Launch the instance
         try {
             ec2.runInstances(runInstancesRequest);
-        } catch (InterruptedException ignored) {
+        } catch (Ec2Exception e) {
+            System.err.println("Failed to launch instance: " + e.awsErrorDetails().errorMessage());
         }
     }
 
@@ -121,14 +112,15 @@ public class AWS {
                 .minCount(min)
                 .maxCount(max)
                 .userData(Base64.getEncoder().encodeToString(script.getBytes()))
-                // @ADD security feratures
+                // @ADD security features
                 .build();
 
         // Launch the instance
         try {
-            ec2.runInstances(runInstancesRequest);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            return ec2.runInstances(runInstancesRequest);
+        } catch (Ec2Exception e) {
+            System.err.println("Failed to launch instance: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException("Could not run instance", e);
         }
     }
 
@@ -138,8 +130,11 @@ public class AWS {
         DescribeInstancesResponse describeInstancesResponse = null;
         try {
             describeInstancesResponse = ec2.describeInstances(describeInstancesRequest);
-        } catch (InterruptedException ignored) {
+        } catch (Ec2Exception e) {
+            System.err.println("Failed to describe instances: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException("Could not retrieve instances", e);
         }
+
 
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
@@ -163,20 +158,20 @@ public class AWS {
     }
 
     public List<String> getAllInstanceIdsWithLabel(Label label) throws InterruptedException {
-    DescribeInstancesRequest describeInstancesRequest =
-            DescribeInstancesRequest.builder()
-                    .filters(Filter.builder()
-                            .name("tag:Label")
-                            .values(label.toString())
-                            .build())
-                    .build();
+        DescribeInstancesRequest describeInstancesRequest =
+                DescribeInstancesRequest.builder()
+                        .filters(Filter.builder()
+                                .name("tag:Label")
+                                .values(label.toString())
+                                .build())
+                        .build();
 
-    DescribeInstancesResponse describeInstancesResponse = ec2.describeInstances(describeInstancesRequest);
+        DescribeInstancesResponse describeInstancesResponse = ec2.describeInstances(describeInstancesRequest);
 
-    return describeInstancesResponse.reservations().stream()
-            .flatMap(r -> r.instances().stream())
-            .map(Instance::instanceId) // Extract only the instance ID
-            .toList();
+        return describeInstancesResponse.reservations().stream()
+                .flatMap(r -> r.instances().stream())
+                .map(Instance::instanceId) // Extract only the instance ID
+                .toList();
     }
 
 
@@ -190,18 +185,19 @@ public class AWS {
         // Terminate the instance
         try {
             ec2.terminateInstances(terminateRequest);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        }  catch (Ec2Exception e) {
+            System.err.println("Failed to launch instance: " + e.awsErrorDetails().errorMessage());
+            throw new RuntimeException("Could not run instance", e);
         }
 
         System.out.println("Terminated instance: " + instanceId);
     }
 
-/*  
+/*
     Questions:
         - Should we try use 2 regions in order to be able to take advantage of more than 9 ec2 per region?
         - If so, so we need to make that we allocate an additonal bucket in another region?
-        - Do we need to implement our own constraints in order not to exceed 19 ec2 instances? 
+        - Do we need to implement our own constraints in order not to exceed 19 ec2 instances?
  */
 
 
@@ -214,8 +210,8 @@ public class AWS {
 
         PutObjectRequest req =
                 PutObjectRequest.builder()
-                
-                .bucket(bucketName)
+
+                        .bucket(bucketName)
                         .key(keyPath)
                         .build();
 
@@ -227,8 +223,8 @@ public class AWS {
     public String createEmptyFileInS3(String keyPath) throws Exception {
         PutObjectRequest req =
                 PutObjectRequest.builder()
-                
-                .bucket(bucketName)
+
+                        .bucket(bucketName)
                         .key(keyPath)
                         .build();
         return "s3://" + bucketName + "/" + keyPath;
@@ -243,19 +239,30 @@ public class AWS {
                 .build();
 
         try {
+            // Retrieve the object as bytes from S3
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(getObjectRequest);
             byte[] data = objectBytes.asByteArray();
 
-            // Write the data to a local file.
-            OutputStream os = new FileOutputStream(outputFile);
-            os.write(data);
-            System.out.println("Successfully obtained bytes from an S3 object");
-            os.close();
-        } catch (InterruptedException ignored) {
+            try (OutputStream os = new FileOutputStream(outputFile)) {
+                os.write(data);
+                System.out.println("Successfully downloaded and saved the file from S3.");
+            }
+        } catch (S3Exception e) {
+            // Handle S3-specific exceptions
+            System.err.println("Failed to download file from S3: " + e.awsErrorDetails().errorMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            // Handle file writing errors
+            System.err.println("Error writing to file: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Catch-all for unexpected exceptions
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-       public void createBucketIfNotExists(String bucketName) {
+    public void createBucketIfNotExists(String bucketName) {
         try {
             s3.createBucket(CreateBucketRequest
                     .builder()
@@ -283,7 +290,7 @@ public class AWS {
         ListObjectsV2Iterable listRes = null;
         try {
             listRes = s3.listObjectsV2Paginator(listReq);
-        } catch (InterruptedException ignored) {
+        } catch (S3Exception ignored) {
         }
         // Process response pages
         listRes.stream()
@@ -294,25 +301,25 @@ public class AWS {
     }
 
 
-public List<S3Object> listFilesInS3(String prefix) { //new
-    // Create a request to list objects with the specified prefix
-    ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
-            .bucket(bucketName)
-            .prefix(prefix) // Directory path (e.g., "responses/inputFileId/")
-            .build();
+    public List<S3Object> listFilesInS3(String prefix) { //new
+        // Create a request to list objects with the specified prefix
+        ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
+                .bucket(bucketName)
+                .prefix(prefix) // Directory path (e.g., "responses/inputFileId/")
+                .build();
 
-    // Execute the request and get the response
-    ListObjectsV2Response listResponse = s3.listObjectsV2(listRequest);
+        // Execute the request and get the response
+        ListObjectsV2Response listResponse = s3.listObjectsV2(listRequest);
 
-    // Return the list of S3 objects
-    return listResponse.contents();
-}
+        // Return the list of S3 objects
+        return listResponse.contents();
+    }
 
     public void deleteEmptyBucket(String bucketName) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder().bucket(bucketName).build();
         try {
             s3.deleteBucket(deleteBucketRequest);
-        } catch (InterruptedException ignored) {
+        } catch (S3Exception ignored) {
         }
     }
 
@@ -335,7 +342,7 @@ public List<S3Object> listFilesInS3(String prefix) { //new
 
         try {
             s3.deleteObjects(multiObjectDeleteRequest);
-        } catch (InterruptedException ignored) {
+        } catch (S3Exception ignored) {
         }
     }
 
@@ -357,7 +364,8 @@ public List<S3Object> listFilesInS3(String prefix) { //new
         CreateQueueResponse create_result = null;
         try {
             create_result = sqs.createQueue(request);
-        } catch (InterruptedException ignored) {
+        } catch (SqsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
         }
 
         assert create_result != null;
@@ -374,7 +382,8 @@ public List<S3Object> listFilesInS3(String prefix) { //new
 
         try {
             sqs.deleteQueue(req);
-        } catch (InterruptedException ignored) {
+        } catch (SqsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
         }
     }
 
@@ -385,7 +394,8 @@ public List<S3Object> listFilesInS3(String prefix) { //new
         String queueUrl = null;
         try {
             queueUrl = sqs.getQueueUrl(getQueueRequest).queueUrl();
-        } catch (InterruptedException ignored) {
+        } catch (SqsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
         }
         System.out.println("Queue URL: " + queueUrl);
         return queueUrl;
@@ -404,7 +414,8 @@ public List<S3Object> listFilesInS3(String prefix) { //new
         GetQueueAttributesResponse queueAttributesResponse = null;
         try {
             queueAttributesResponse = sqs.getQueueAttributes(getQueueAttributesRequest);
-        } catch (InterruptedException ignored) {
+        } catch (SqsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
         }
         Map<QueueAttributeName, String> attributes = queueAttributesResponse.attributes();
 
@@ -416,29 +427,29 @@ public List<S3Object> listFilesInS3(String prefix) { //new
 
     public String sendMessage(String queueUrl, String messageBody) {
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()
-            .queueUrl(queueUrl)
-            .messageBody(messageBody)
-            .build();
+                .queueUrl(queueUrl)
+                .messageBody(messageBody)
+                .build();
 
         SendMessageResponse sendMessageResponse = sqs.sendMessage(sendMessageRequest);
         String messageId = sendMessageResponse.messageId();
         return messageId;
-}
+    }
 
     public String sendMessageWithId(String queueUrl, String messageBody, String fileId) {
         MessageAttributeValue fileIdAttribute = MessageAttributeValue.builder()
-            .stringValue(fileId)
-            .dataType("String")
-            .build();
+                .stringValue(fileId)
+                .dataType("String")
+                .build();
 
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()
-            .queueUrl(queueUrl)
-            .messageBody(messageBody)
-            .messageAttributes(Map.of("FileId", fileIdAttribute)) // Add the fileId attribute
-            .build();
+                .queueUrl(queueUrl)
+                .messageBody(messageBody)
+                .messageAttributes(Map.of("FileId", fileIdAttribute)) // Add the fileId attribute
+                .build();
 
         SendMessageResponse sendMessageResponse = sqs.sendMessage(sendMessageRequest);
-        
+
         String messageId = sendMessageResponse.messageId();
         System.out.println("Message sent with MessageId: " + messageId + " and FileId: " + fileId);
         return messageId;
@@ -448,39 +459,48 @@ public List<S3Object> listFilesInS3(String prefix) { //new
 
 
 
-    public void sendMessageBatches(String queueUrl, List<String> messages, String messageId) { // check if needs to be synchronized 
-
-        Iterator<String> msgIter = messages.iterator();
-        while (msgIter.hasNext()) {
-            List<SendMessageBatchRequestEntry> entries = new ArrayList<>(); 
-
-            // create batches of 10 entries (aws limitations)
-            for (int i = 1; msgIter.hasNext() && i <= 10; i++ ) {
-                entries.add(new SendMessageBatchRequestEntry("msg_" + i, msgIter.next()));
-            }
-
-            SendMessageBatchRequest batchRequest = new SendMessageBatchRequest()
-                .withQueueUrl(queueUrl)
-                .withEntries(entries);
-
-            // send batch
-            sqs.sendMessageBatch(batchRequest);
-        }
-    }    
+//    public void sendMessageBatches(String queueUrl, List<String> messages, String messageId) { // check if needs to be synchronized
+//
+//        Iterator<String> msgIter = messages.iterator();
+//        while (msgIter.hasNext()) {
+//            List<SendMessageBatchRequestEntry> entries = new ArrayList<>();
+//
+//            // create batches of 10 entries (aws limitations)
+//            for (int i = 1; msgIter.hasNext() && i <= 10; i++ ) {
+//                entries.add(new SendMessageBatchRequestEntry("msg_" + i, msgIter.next()));
+//            }
+//
+//            SendMessageBatchRequest batchRequest = new SendMessageBatchRequest()
+//                .withQueueUrl(queueUrl)
+//                .withEntries(entries);
+//
+//            // send batch
+//            sqs.sendMessageBatch(batchRequest);
+//        }
+//    }
 
 
     public List<Message> receiveMessages(String queueUrl) {
-        return sqs.receiveMessage(queueUrl).getMessages();
+        // Build the ReceiveMessageRequest
+        ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
+                .queueUrl(queueUrl)
+                .maxNumberOfMessages(10)
+                .waitTimeSeconds(20)
+                .build();
+
+        // Use the SQS client to receive messages
+        return sqs.receiveMessage(receiveMessageRequest).messages();
     }
 
 
-    public List<Message> receiveMessageWithId(String queueUrl, String appFileId) {
+    public Message receiveMessageWithId(String queueUrl, String appFileId) {
+        // Build the ReceiveMessageRequest
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
-            .queueUrl(queueUrl)
-            .maxNumberOfMessages(1) // Fetch one message at a time
-            .waitTimeSeconds(10) 
-            .messageAttributeNames("All") 
-            .build();
+                .queueUrl(queueUrl)
+                .maxNumberOfMessages(1) // Fetch one message at a time
+                .waitTimeSeconds(10)
+                .messageAttributeNames("All") // Include all message attributes
+                .build();
 
         ReceiveMessageResponse receiveMessageResponse = sqs.receiveMessage(receiveMessageRequest);
         List<Message> messages = receiveMessageResponse.messages();
@@ -493,38 +513,56 @@ public List<S3Object> listFilesInS3(String prefix) { //new
         Message message = messages.get(0);
 
         String fileId = message.messageAttributes().getOrDefault("FileId", null) != null
-            ? message.messageAttributes().get("FileId").stringValue()
-            : null;
+                ? message.messageAttributes().get("FileId").stringValue()
+                : null;
 
         if (fileId != null && fileId.equals(appFileId)) {
-            // Process the message if the FileId matches
             System.out.println("Processing message: " + message.body());
-            deleteMessage(queueUrl, message.receiptHandle());
+            sqs.deleteMessage(DeleteMessageRequest.builder()
+                    .queueUrl(queueUrl)
+                    .receiptHandle(message.receiptHandle())
+                    .build());
             return message;
         } else {
-            // Return the message to the queue by setting visibility timeout to 0
             System.out.println("Returning message to the queue. FileId: " + fileId);
-            changeMessageVisibility(queueUrl, message.receiptHandle(), 0);                  /// need to change vidibility 
+            sqs.changeMessageVisibility(ChangeMessageVisibilityRequest.builder()
+                    .queueUrl(queueUrl)
+                    .receiptHandle(message.receiptHandle())
+                    .visibilityTimeout(0)
+                    .build());
             return null;
         }
     }
 
 
 
+
     public void deleteMessages(String queueUrl, List<Message> messages) {
         for (Message m : messages) {
-            sqs.deleteMessage(queueUrl, m.getReceiptHandle());
+            sqs.deleteMessage(DeleteMessageRequest.builder()
+                    .queueUrl(queueUrl)
+                    .receiptHandle(m.receiptHandle()) // Correct method for SDK v2
+                    .build());
         }
-    }        
+    }
 
-    public void deleteMessage(String queueUrl,Message message) {
-        sqs.deleteMessage(queueUrl, message.getReceiptHandle());
+    public void deleteMessage(String queueUrl, Message message) {
+        sqs.deleteMessage(DeleteMessageRequest.builder()
+                .queueUrl(queueUrl)
+                .receiptHandle(message.receiptHandle()) // Correct method for SDK v2
+                .build());
     }
 
     public int getSummaryLimit(){
         return summaryLimit;
     }
-    
+
+    public String getBucketName(){
+        return bucketName;
+    }
+
+
+
     ///////////////////////
 
     public enum Label {

@@ -1,23 +1,16 @@
-package manager;
+//import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
+//import com.amazonaws.services.sqs.model.AmazonSQSException;
+//import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
+//import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.AmazonSQSException;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
-import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
-
-import API.AWS;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+//import API.AWS;
+import software.amazon.awssdk.services.ec2.model.Instance;
+import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.sqs.model.Message;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Manager {
@@ -38,7 +31,7 @@ public static void main(String[] args) {
         for (Message input : inputList) {
             //processing input files
             processInputFile(input);
-            aws.deleteMessage(inputQueueUrl, input.getReceiptHandle());
+            aws.deleteMessage(inputQueueUrl, input); // Correct method for receipt handle
         }
         //processing workers output files
         processResponseMessage();
@@ -51,8 +44,8 @@ public static void processInputFile(Message inputFile){
         terminate();
     } 
     else {
-        String inputFileId = inputFile.getMessageId();
-        String[] messageParts = inputFile.messageBody().split("\t");
+        String inputFileId = inputFile.messageId();
+        String[] messageParts = inputFile.body().split("\t");
         String keyPath = messageParts[0];
         int tasksPerWorker = Integer.valueOf(messageParts[1]);
         String filePath = System.getProperty("user.dir") + File.separator + "input-files" + File.separator + inputFileId; //locally on EC2
@@ -99,7 +92,12 @@ private static List<String> parseInputFile(String filePath, String inputFileId) 
 private static void manageWorkers(int messageCount, int tasksPerWorker) {
     int requiredWorkers = Math.min((messageCount + tasksPerWorker - 1) / tasksPerWorker, MAX_WORKERS);
 
-    List<Instance> runningWorkers = aws.getAllInstancesWithLabel(aws.Label.Worker);  // Get the count of currently running workers
+    List<Instance> runningWorkers = null;  // Get the count of currently running workers
+    try {
+        runningWorkers = aws.getAllInstancesWithLabel(AWS.Label.Worker);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
     int currentWorkerCount = runningWorkers.size();
 
     if (currentWorkerCount < requiredWorkers) {
@@ -109,15 +107,15 @@ private static void manageWorkers(int messageCount, int tasksPerWorker) {
         // "exec > /var/log/user-data.log 2>&1\n" +
         // "java -jar /home/ec2-user/manager.jar\n"; //change it to worker
 
-        String script = "#!/bin/bash\n" +
-        "echo Manager jar running\n" +
-        "echo s3://" + aws.bucketName + "/" + aws.managerJarKey + "\n" +
-        "mkdir ManagerFiles\n" +
-        "aws s3 cp s3://" + aws.bucketName + "/" + aws.managerJarKey + " ./ManagerFiles/" + aws.managerJarName + "\n" +
-        "echo manager copy the jar from s3\n" +
-        "java -jar /ManagerFiles/" + aws.managerJarName + "\n";
-        aws.createEC2(script, "Worker", workersToStart);
-    }
+//        String script = "#!/bin/bash\n" +
+//        "echo Manager jar running\n" +
+//        "echo s3://" + aws.getBucketName() + "/" + aws.managerJarKey + "\n" +
+//        "mkdir ManagerFiles\n" +
+//        "aws s3 cp s3://" + aws.getBucketName() + "/" + aws.managerJarKey + " ./ManagerFiles/" + aws.managerJarName + "\n" +
+//        "echo manager copy the jar from s3\n" +
+//        "java -jar /ManagerFiles/" + aws.managerJarName + "\n";
+//        aws.createEC2(script, "Worker", workersToStart);
+   }
 }
 
 private static void processResponseMessage(){
@@ -141,19 +139,23 @@ private static void processResponseMessage(){
             String responseData = String.format("%s\t%s\t%s", operation, pdfUrl, s3ResultsPath);
             File tempFile = createTempFile(responseData);
             // Upload the response to S3
-            aws.uploadFileToS3(responseFileKey, tempFile);
+            try {
+                aws.uploadFileToS3(responseFileKey, tempFile);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             tempFile.delete();
             
             int cur = localAppMap.get(fileId) - 1;
             if (cur == 0) {
                 String summaryFile = generateSummaryFile(fileId);
-                System.out.println("Summary file created: " + summaryFileKey);
+                System.out.println("Summary file created: " + summaryFile);
                 int summaryNum = (fileId.hashCode() & Integer.MAX_VALUE) % aws.getSummaryLimit() + 1;
                 String summaryQueueUrl = aws.getQueueUrl("summaryQueue_" + summaryNum); 
                 aws.sendMessageWithId(summaryQueueUrl, summaryFile, fileId);
                 System.out.println("Summary file sent to: summaryQueue_" + summaryNum + " with  fileId: " + fileId);
             }
-            localAppMap.get(fileId).set(cur);
+            localAppMap.put(fileId,cur);
         } 
 
         else {
@@ -192,8 +194,8 @@ private static String generateSummaryFile(String inputFileId) {
         File localFile = new File(filePath);
         try {
             // Attempt to create the file
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getAbsolutePath());
+            if (localFile.createNewFile()) {
+                System.out.println("File created: " + localFile.getAbsolutePath());
             } else {
                 System.out.println("File already exists.");
             }
@@ -207,9 +209,28 @@ private static String generateSummaryFile(String inputFileId) {
         summaryContent.append(fileContent).append(System.lineSeparator());
         localFile.delete();
     }
+    // Create a new file to store the summary
+    File summaryFile = new File(System.getProperty("user.dir") + File.separator + "output-files" + File.separator + inputFileId + "-summary.txt");
+    try {
+        if (!summaryFile.exists()) {
+            summaryFile.createNewFile();
+        }
+
+        // Write the summary content to the summary file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(summaryFile))) {
+            writer.write(summaryContent.toString());
+        }
+    } catch (IOException e) {
+        System.out.println("An error occurred while creating the summary file.");
+        e.printStackTrace();
+    }
 
     // Upload the summary file to S3
-    return (aws.uploadFileToS3(summaryFileKey, summaryContent.toString()));
+    try {
+        return aws.uploadFileToS3(summaryFileKey, summaryFile);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
 }
 
 private static String readFileContent(File file) {
@@ -236,7 +257,12 @@ public static void terminate() {
     }
     generateAllPendingSummaries(); // Create response messages for any completed jobs, if needed
     terminateAllWorkers();
-    List<String> managerIds = aws.getAllInstanceIdsWithLabel(aws.Label.Manager);
+    List<String> managerIds = null;
+    try {
+        managerIds = aws.getAllInstanceIdsWithLabel(AWS.Label.Manager);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
     aws.terminateInstance(managerIds.get(0)); //terminate the Manager
 }
 
@@ -251,7 +277,12 @@ private static void generateAllPendingSummaries() {
 
 private static void terminateAllWorkers() {
     System.out.println("Terminating all worker instances...");
-    List<String> workerIds = aws.getAllInstanceIdsWithLabel(aws.Label.Worker);
+    List<String> workerIds = null;
+    try {
+        workerIds = aws.getAllInstanceIdsWithLabel(AWS.Label.Worker);
+    } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+    }
     for (String id : workerIds) {
         aws.terminateInstance(id);
         System.out.println("Terminated worker instance: " + id);

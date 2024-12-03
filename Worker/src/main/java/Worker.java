@@ -1,41 +1,42 @@
-package worker;
-
-import api.AWS;
+//import api.AWS;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import software.amazon.awssdk.services.sqs.model.Message;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.List;
 import javax.imageio.ImageIO;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.file.Path;
 
 public class Worker {
 
-    private final AWS aws; // AWS helper class
-    private final String responseQueueUrl; // SQS queue for results
-    private final String bucketName; // S3 bucket for uploading results
-    //private boolean terminate
+    final static AWS aws = AWS.getInstance();
 
-    public Worker(String taskQueueUrl, String responseQueueUrl, String bucketName) {
-        this.aws = AWS.getInstance();
-        this.bucketName = bucketName;
+    public static void main(String[] args) {
+        start();
     }
 
-    public void start() {
+
+    public static void start() {
         while (true) {
+            // Get a message from an SQS queue
+            String workersQueueUrl = aws.getQueueUrl("workersQueue");
+            String responseQueueUrl = aws.getQueueUrl("responseQueue");
             try {
-                // Get a message from an SQS queue
-                String workersQueueUrl = aws.getQueueUrl("workersQueue");
-                String responseQueueUrl = aws.getQueueUrl("responseQueue");
-                List<Message> messages = aws.receiveMessage(workersQueueUrl);
+                List<Message> messages = aws.receiveMessages(workersQueueUrl);
                 if (messages == null) continue; // No messages, keep polling
                 
                 // Parse the message
                 for (Message m : messages){
-                    String[] parts = m.body.split("\t");
+                    String[] parts = m.body().split("\t");
                     String operation = parts[0];
                     String pdfUrl = parts[1];
                     String fileId = parts[2];
@@ -45,7 +46,7 @@ public class Worker {
                     File resultFile = performOperation(operation, pdfFile);
 
                     // Upload the result to S3   
-                    String s3ResultsPath = "results" + File.separator + m.getMessageId(); 
+                    String s3ResultsPath = "results" + File.separator + m.messageId();
                     String resultS3Url = aws.uploadFileToS3(s3ResultsPath, resultFile);
                     String responseMessage = String.format("%s\t%s\t%s\t%s", operation, pdfUrl, s3ResultsPath, fileId);
 
@@ -53,9 +54,18 @@ public class Worker {
                     aws.sendMessage(responseQueueUrl, responseMessage);
                     aws.deleteMessage(workersQueueUrl, m);
 
+                    try { // delete local output file in order to handle next message
+                        if (Files.deleteIfExists(pdfFile.toPath())) {
+                            System.out.println("File deleted successfully.");
+                        } else {
+                            System.out.println("File did not exist.");
+                        }
+                    } catch (IOException e) {
+                        System.out.println("An error occurred: " + e.getMessage());
+                    }
 
-                    try { // delete local output file in order to handle next message 
-                        if (Files.deleteIfExists(resultFile)) {
+                    try { // delete local output file in order to handle next message
+                        if (Files.deleteIfExists(resultFile.toPath())) {
                             System.out.println("File deleted successfully.");
                         } else {
                             System.out.println("File did not exist.");
@@ -67,25 +77,23 @@ public class Worker {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                aws.sendMessageToQueue(responseQueueUrl, "Error processing task: " + e.getMessage());
+                aws.sendMessage(responseQueueUrl, "Error processing task: " + e.getMessage());
             }
         }
     }
 
-    private File downloadPDF(String pdfUrl) throws IOException {
-        // Create a file to save the downloaded PDF
-        File pdfFile = new File("downloaded.pdf");
-
-        // Download the file and save it to disk
-        try (FileOutputStream fileOutputStream = new FileOutputStream(pdfFile)) {
-            byte[] fileBytes = Request.Get(pdfUrl).execute().returnContent().asBytes();
-            fileOutputStream.write(fileBytes);
-        }
-
-        return pdfFile;
+    private static File downloadPDF(String pdfUrl) throws IOException, InterruptedException {
+        Path pdfPath = Path.of("downloaded.pdf");
+        HttpClient httpClient = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(pdfUrl))
+                .GET()
+                .build();
+        httpClient.send(request, HttpResponse.BodyHandlers.ofFile(pdfPath));
+        return pdfPath.toFile();
     }
 
-    private File performOperation(String operation, File pdfFile) throws IOException {
+    private static File performOperation(String operation, File pdfFile) throws IOException {
         switch (operation) {
             case "ToImage":
                 return convertToImage(pdfFile);
@@ -100,7 +108,7 @@ public class Worker {
 
     // operations 
 
-    private File convertToImage(File pdfFile) throws IOException {
+    private static File convertToImage(File pdfFile) throws IOException {
         PDDocument document = PDDocument.load(pdfFile);
         PDFRenderer renderer = new PDFRenderer(document);
         BufferedImage image = renderer.renderImage(0); // renders first page to image 
@@ -110,7 +118,7 @@ public class Worker {
         return outputFile;
     }
 
-    private File convertToHTML(File pdfFile) throws IOException {
+    private static File convertToHTML(File pdfFile) throws IOException {
         PDDocument document = PDDocument.load(pdfFile);
         PDFTextStripper stripper = new PDFTextStripper(); // extracts textual content from pdf file
         String text = stripper.getText(document);
@@ -122,7 +130,7 @@ public class Worker {
         return outputFile; 
     }
 
-    private File convertToText(File pdfFile) throws IOException {
+    private static File convertToText(File pdfFile) throws IOException {
         PDDocument document = PDDocument.load(pdfFile);
         PDFTextStripper stripper = new PDFTextStripper();
         String text = stripper.getText(document);
