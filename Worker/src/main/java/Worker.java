@@ -29,7 +29,7 @@ public class Worker {
         while (true) {
             // Get a message from an SQS queue
             String workersQueueUrl = aws.getQueueUrl("workersQueue");
-            String responseQueueUrl = aws.getQueueUrl("responseQueue");
+            String responsesQueueUrl = aws.getQueueUrl("responsesQueue");
             try {
                 List<Message> messages = aws.receiveMessages(workersQueueUrl);
                 if (messages == null) continue; // No messages, keep polling
@@ -40,18 +40,18 @@ public class Worker {
                     String operation = parts[0];
                     String pdfUrl = parts[1];
                     String fileId = parts[2];
-                
+
                     // Download the PDF file and perform operation
                     File pdfFile = downloadPDF(pdfUrl);
                     File resultFile = performOperation(operation, pdfFile);
 
                     // Upload the result to S3   
-                    String s3ResultsPath = "results" + File.separator + m.messageId();
+                    String s3ResultsPath = aws.getResultsS3Name() + m.messageId();
                     String resultS3Url = aws.uploadFileToS3(s3ResultsPath, resultFile);
                     String responseMessage = String.format("%s\t%s\t%s\t%s", operation, pdfUrl, s3ResultsPath, fileId);
 
-                    // Send success message to the response queue and Remove the processed message from the task queue
-                    aws.sendMessage(responseQueueUrl, responseMessage);
+                    // Send success message to the responses queue and Remove the processed message from the task queue
+                    aws.sendMessage(responsesQueueUrl, responseMessage);
                     aws.deleteMessage(workersQueueUrl, m);
 
                     try { // delete local output file in order to handle next message
@@ -77,7 +77,7 @@ public class Worker {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                aws.sendMessage(responseQueueUrl, "Error processing task: " + e.getMessage());
+                aws.sendMessage(responsesQueueUrl, "Error processing task: " + e.getMessage());
             }
         }
     }
@@ -142,11 +142,6 @@ public class Worker {
         return outputFile;
     }
 
-    // public static void main(){
-    //     File output = convertToImage("http://www.bethelnewton.org/images/Passover_Guide_BOOKLET.pdf");
-        
-    // }
-    
 
                 /* Repeatedly:
                 ▪ Get a message from an SQS queue.

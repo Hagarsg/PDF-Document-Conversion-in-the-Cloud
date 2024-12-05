@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Worker" />
         <module name="Manager" />
+        <module name="Worker" />
         <module name="Local-App" />
       </profile>
     </annotationProcessing>

@@ -15,17 +15,17 @@ import java.util.List;
 
 public class Manager {
     final static AWS aws = AWS.getInstance();
-    private static final int MAX_WORKERS = 19;
+    private static final int MAX_WORKERS = 7;
     private static volatile boolean terminate = false;
     private static String inputQueueUrl;
     private static String workersQueueUrl;
-    private static String resultsQueueUrl;
+    private static String responsesQueueUrl;
     private static HashMap<String, Integer> localAppMap;
 
 public static void main(String[] args) throws Exception {
     inputQueueUrl = aws.getQueueUrl(aws.getInputQueueName());
     workersQueueUrl = aws.createQueue(aws.getWorkerQueueName());
-    resultsQueueUrl = aws.createQueue(aws.getResultsQueueName());
+    responsesQueueUrl = aws.createQueue(aws.getResponsesQueueName());
     localAppMap = new HashMap<>();
 
 
@@ -38,7 +38,7 @@ public static void main(String[] args) throws Exception {
             aws.deleteMessage(inputQueueUrl, input); // Correct method for receipt handle
         }
         //processing workers output files
-        processResultsMessage();
+        processResponsesMessage();
     }   
 }
 
@@ -51,27 +51,48 @@ public static void processInputFile(Message inputFile) throws Exception {
         String[] messageParts = inputFile.body().split("\t");
         String keyPath = messageParts[0];
         int tasksPerWorker = Integer.valueOf(messageParts[1]);
-        String filePath = System.getProperty("user.dir") + File.separator + aws.getInputFileS3Name() + inputFileId; //locally on EC2
+        // Explicit EC2 path for the input file
+        String ec2BaseDir = "/tmp/input-files"; // Change to your desired EC2 directory
+        String filePath = ec2BaseDir + File.separator + inputFileId;
         File file = new File(filePath);
+
         try {
+            // Ensure parent directory exists
+            File parentDir = file.getParentFile();
+            if (!parentDir.exists()) {
+                if (parentDir.mkdirs()) {
+                    System.out.println("Created parent directory: " + parentDir.getAbsolutePath());
+                } else {
+                    throw new IOException("Failed to create parent directory: " + parentDir.getAbsolutePath());
+                }
+            }
+
             // Attempt to create the file
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getAbsolutePath());
             } else {
-                System.out.println("File already exists.");
+                System.out.println("File already exists: " + file.getAbsolutePath());
             }
         } catch (IOException e) {
-            // Handle potential IO exceptions
             System.out.println("An error occurred while creating the file.");
             e.printStackTrace();
+            throw e; // Re-throw exception to handle it in the caller if needed
         }
-        aws.downloadFileFromS3(keyPath, file);//download file from s3 to ec2
+
+        aws.downloadFileFromS3(keyPath, file); //download file from s3 to ec2
+
+        // add debug-- show content of donwloaded file
+
         List<String> urlsAndOperations = parseInputFile(filePath, inputFileId); // read URLs and operations from the input file
+
+        // add debug-- see that parsing is done right
+
         localAppMap.put(inputFileId, urlsAndOperations.size());
         manageWorkers(urlsAndOperations.size(), tasksPerWorker); // create correct amount of workers 
 
         // send url and ops to worker queue
         for (String msg : urlsAndOperations) {
+            System.out.println("Sending message to workers Queue: " + msg);
             aws.sendMessage(workersQueueUrl, msg);
         }
         // aws.sendMessageBatches(workersQueueUrl, urlsAndOperations);
@@ -121,33 +142,33 @@ private static void manageWorkers(int messageCount, int tasksPerWorker) throws E
                     chmod +x /tmp/worker-bootstrap.sh
                     /tmp/worker-bootstrap.sh
                     """;
-        aws.createEC2(script, "Worker", workersToStart);
+        aws.createEC2WithLimit(script, "Worker", workersToStart);
    }
 }
 
-private static void processResultsMessage(){
-    List<Message> resultList = aws.receiveMessages(resultsQueueUrl);
-    for(Message result : resultList) {
-        String messageBody = result.body();
-        System.out.println("Received result: " + messageBody);
+private static void processResponsesMessage(){
+    List<Message> responseList = aws.receiveMessages(responsesQueueUrl);
+    for(Message response : responseList) {
+        String messageBody = response.body();
+        System.out.println("Received response: " + messageBody);
 
-        // Split the result message by tab separator (\t)
+        // Split the response message by tab separator (\t)
         String[] parts = messageBody.split("\t");
 
-        // Ensure that the result message has the correct number of parts
+        // Ensure that the response message has the correct number of parts
         if (parts.length == 4) {
             String operation = parts[0];
             String pdfUrl = parts[1];
             String s3ResultsPath = parts[2];
             String fileId = parts[3];
 
-            // Generate a unique key for the individual result
-            String resultFileKey = aws.getResultsS3Name() + fileId + "/" + result.messageId() + ".txt";
-            String resultData = String.format("%s\t%s\t%s", operation, pdfUrl, s3ResultsPath);
-            File tempFile = createTempFile(resultData);
-            // Upload the result to S3
+            // Generate a unique key for the individual response
+            String responseFileKey = aws.getResponsesS3Name() + fileId + "/" + response.messageId() + ".txt";
+            String responseData = String.format("%s\t%s\t%s", operation, pdfUrl, s3ResultsPath);
+            File tempFile = createTempFile(responseData);
+            // Upload the response to S3
             try {
-                aws.uploadFileToS3(resultFileKey, tempFile);
+                aws.uploadFileToS3(responseFileKey, tempFile);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -174,7 +195,7 @@ private static void processResultsMessage(){
 private static File createTempFile(String content) {
     File tempFile = null;
     try {
-        tempFile = File.createTempFile("result", ".txt"); // Create a temporary file
+        tempFile = File.createTempFile("response", ".txt"); // Create a temporary file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) { // Write the content to the temporary file
             writer.write(content);
         }
@@ -186,17 +207,17 @@ private static File createTempFile(String content) {
 }
 
 private static String generateSummaryFile(String inputFileId) {
-    String resultDirKey = aws.getResultsS3Name() + inputFileId + "/";
+    String responseDirKey = aws.getResponsesS3Name() + inputFileId + "/";
     String summaryFileKey = aws.getSummariesS3Name() + inputFileId + ".txt";
 
-    // List all result files in S3
-    List<S3Object> resultFiles = aws.listFilesInS3(resultDirKey);
+    // List all response files in S3
+    List<S3Object> responseFiles = aws.listFilesInS3(responseDirKey);
 
     // Combine content into a summary file
     StringBuilder summaryContent = new StringBuilder();
-    for (S3Object resultFile : resultFiles) {
+    for (S3Object responseFile : responseFiles) {
 
-        // Download the result file content from S3 to a local file
+        // Download the response file content from S3 to a local file
         String filePath = System.getProperty("user.dir") + File.separator + "output-files" + File.separator + inputFileId; //locally on EC2
         File localFile = new File(filePath);
         try {
@@ -211,7 +232,7 @@ private static String generateSummaryFile(String inputFileId) {
             System.out.println("An error occurred while creating the file.");
             e.printStackTrace();
         }
-        aws.downloadFileFromS3(resultFile.key(),localFile);
+        aws.downloadFileFromS3(responseFile.key(),localFile);
         String fileContent = readFileContent(localFile);
         summaryContent.append(fileContent).append(System.lineSeparator());
         localFile.delete();
@@ -262,7 +283,7 @@ public static void terminate() {
             e.printStackTrace();
         }
     }
-    generateAllPendingSummaries(); // Create result messages for any completed jobs, if needed
+    generateAllPendingSummaries(); // Create response messages for any completed jobs, if needed
     terminateAllWorkers();
     List<String> managerIds = null;
     try {

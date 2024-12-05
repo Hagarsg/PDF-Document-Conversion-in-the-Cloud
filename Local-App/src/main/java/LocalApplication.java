@@ -161,7 +161,7 @@ public class LocalApplication {
                     chmod +x /tmp/manager-bootstrap.sh
                     /tmp/manager-bootstrap.sh
                     """;
-                aws.createEC2(script, "Manager", 1); // create manager EC2
+                aws.createEC2WithLimit(script, "Manager", 1); // create manager EC2
             }
         } catch (InterruptedException e) {
             System.err.println("Error occurred while retrieving instances: " + e.getMessage());
@@ -170,13 +170,6 @@ public class LocalApplication {
             throw new RuntimeException(e);
         }
     }
-
-    private static void createEC2() {
-        String ec2Script = "#!/bin/bash\n" +
-                "echo Hello World\n";
-        String managerInstanceID = aws.createEC2(ec2Script, "thisIsJustAString", 1);
-    }
-
 
     private static void summaryToHTML(File summaryFile) {
         File htmlOutputFile = new File(outFilePath);

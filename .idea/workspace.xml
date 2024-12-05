@@ -4,32 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="updated">
-      <change afterPath="$PROJECT_DIR$/Local-App/src/main/resources/manager-bootstrap.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Manager/src/main/resources/worker-bootstrap.sh" afterDir="false" />
+    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="8:25">
+      <change afterPath="$PROJECT_DIR$/Worker/src/test/java/WorkerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
+    </list>
+    <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="">
       <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/target/outPutFile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/your-artifact-id-1.0-SNAPSHOT.jar" beforeDir="false" />
-    </list>
-    <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="">
-      <change beforePath="$PROJECT_DIR$/Manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +27,13 @@
   </component>
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,10 +50,52 @@
     &quot;accountId&quot;: &quot;5ac567d4-e99b-415d-b618-82d71c78d3e2&quot;
   }
 }</component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Worker/src/main/java/Worker.java">
+      <ranges>
+        <range start1="31" end1="32" start2="31" end2="32" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="42" end1="43" start2="42" end2="43" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="48" end1="49" start2="48" end2="49" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="52" end1="54" start2="52" end2="54" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="79" end1="80" start2="79" end2="80" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="144" end1="149" start2="144" end2="144" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/Manager/src/main/java/Manager.java">
+      <ranges>
+        <range start1="17" end1="18" start2="17" end2="18" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="21" end1="22" start2="21" end2="22" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="27" end1="28" start2="27" end2="28" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="40" end1="41" start2="40" end2="41" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="53" end1="54" start2="53" end2="56" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="55" end1="55" start2="57" end2="58" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="56" end1="56" start2="59" end2="69" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="60" end1="61" start2="73" end2="74" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="63" end1="64" start2="76" end2="76" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="66" end1="66" start2="78" end2="79" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="67" end1="68" start2="80" end2="85" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="69" end1="69" start2="86" end2="89" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="74" end1="74" start2="94" end2="95" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="123" end1="124" start2="144" end2="145" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="127" end1="132" start2="148" end2="153" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="133" end1="134" start2="154" end2="155" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="136" end1="137" start2="157" end2="158" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="143" end1="148" start2="164" end2="169" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="149" end1="150" start2="170" end2="171" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="176" end1="177" start2="197" end2="198" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="188" end1="189" start2="209" end2="210" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="191" end1="193" start2="212" end2="214" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="196" end1="197" start2="217" end2="218" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="198" end1="199" start2="219" end2="220" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="213" end1="214" start2="234" end2="235" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="264" end1="265" start2="285" end2="286" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
@@ -74,6 +112,9 @@
   "keyToString": {
     "Application.LocalApplication.executor": "Run",
     "Application.Manager.executor": "Run",
+    "Application.Worker.executor": "Run",
+    "Application.WorkerTest.executor": "Run",
+    "Application.workerTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "newBranch",
@@ -96,11 +137,11 @@
       <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Local-App/target" />
       <recent name="$PROJECT_DIR$/Manager/src/main/resources" />
       <recent name="$PROJECT_DIR$/Local-App/src/main/resources" />
       <recent name="$PROJECT_DIR$/Local-App/src/main/java" />
-      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -126,14 +167,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Worker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Worker" />
+      <module name="Worker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="WorkerTest" />
+      <module name="Manager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="workerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="UNNAMED_CLASS_CONFIGURATION" value="true" />
+      <option name="MAIN_CLASS_NAME" value="workerTest" />
+      <module name="Worker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Application.WorkerTest" />
+      <item itemvalue="Application.workerTest" />
+      <item itemvalue="Application.Worker" />
       <item itemvalue="Application.Manager" />
       <item itemvalue="Application.LocalApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.WorkerTest" />
+        <item itemvalue="Application.workerTest" />
         <item itemvalue="Application.Manager" />
         <item itemvalue="Application.LocalApplication" />
+        <item itemvalue="Application.Worker" />
       </list>
     </recent_temporary>
   </component>
@@ -159,7 +228,11 @@
       <workItem from="1732985182553" duration="22506000" />
       <workItem from="1733212138203" duration="177000" />
       <workItem from="1733213267998" duration="6726000" />
-      <workItem from="1733240471460" duration="19084000" />
+      <workItem from="1733240471460" duration="19409000" />
+      <workItem from="1733380330390" duration="95000" />
+      <workItem from="1733380429591" duration="1429000" />
+      <workItem from="1733381873185" duration="116000" />
+      <workItem from="1733381993851" duration="11405000" />
     </task>
     <task id="LOCAL-00001" summary="hihi">
       <option name="closed" value="true" />
@@ -201,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733335746927</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="8:25">
+      <option name="closed" value="true" />
+      <created>1733379910718</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733379910718</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +302,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="hihi" />
     <MESSAGE value="updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated" />
+    <MESSAGE value="8:25" />
+    <option name="LAST_COMMIT_MESSAGE" value="8:25" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Manager/src/main/java/Manager.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

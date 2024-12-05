@@ -22,14 +22,17 @@ public class AWS {
     public final String IMAGE_AMI = "ami-0e1b037ab311948d5";
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
+    private final int ec2RegionLimit = 9;
+
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
     private final String bucketName = "yuval-hagar-best-bucket";
     private final String inputQueueName = "inputQueue";
     private final String workerQueueName = "workerQueue";
-    private final String resultsQueueName = "resultsQueueName";
+    private final String responsesQueueName = "responsesQueue";
     private final String inputFileS3Name = "input-files/";
+    private final String responsesS3Name = "responses/";
     private final String resultsS3Name = "results/";
     private final String summariesS3Name = "summaries/";
     private final String managerScriptPath = "manager-script";
@@ -224,9 +227,6 @@ public class AWS {
                 .toList();
     }
 
-
-
-
     public void terminateInstance(String instanceId) {
         TerminateInstancesRequest terminateRequest = TerminateInstancesRequest.builder()
                 .instanceIds(instanceId)
@@ -242,14 +242,93 @@ public class AWS {
 
         System.out.println("Terminated instance: " + instanceId);
     }
+    /// ///////// new methods for ec2
 
-/*
-    Questions:
-        - Should we try use 2 regions in order to be able to take advantage of more than 9 ec2 per region?
-        - If so, so we need to make that we allocate an additonal bucket in another region?
-        - Do we need to implement our own constraints in order not to exceed 19 ec2 instances?
- */
+    public List<String> createEC2WithLimit(String script, String tagName, int requestedInstances) {
+        List<String> createdInstanceIds = new ArrayList<>();
 
+        synchronized (this) { // Ensures thread safety
+            // Check capacity in region 1
+            int region1Available = ec2RegionLimit - countRunningInstances(region1);
+
+            if (region1Available > 0) {
+                int instancesToCreate = Math.min(region1Available, requestedInstances);
+                createdInstanceIds.addAll(createEC2InRegion(region1, script, tagName, instancesToCreate));
+                requestedInstances -= instancesToCreate;
+            }
+
+            // Check capacity in region 2 if more instances are needed
+            if (requestedInstances > 0) {
+                int region2Available = ec2RegionLimit - countRunningInstances(region2);
+                if (region2Available > 0) {
+                    int instancesToCreate = Math.min(region2Available, requestedInstances);
+                    createdInstanceIds.addAll(createEC2InRegion(region2, script, tagName, instancesToCreate));
+                }
+            }
+        }
+
+        if (createdInstanceIds.isEmpty()) {
+            throw new RuntimeException("Cannot create instances: Both regions are at maximum capacity.");
+        }
+
+        return createdInstanceIds;
+    }
+
+    // Count running instances in a specific region
+    private int countRunningInstances(Region region) {
+        Ec2Client ec2Client = Ec2Client.builder().region(region).build();
+        DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()
+                .filters(Filter.builder()
+                        .name("instance-state-name")
+                        .values("running")
+                        .build())
+                .build();
+
+        DescribeInstancesResponse response = ec2Client.describeInstances(describeInstancesRequest);
+
+        return response.reservations().stream()
+                .mapToInt(r -> r.instances().size())
+                .sum();
+    }
+
+    // Create EC2 instances in a specific region
+    private List<String> createEC2InRegion(Region region, String script, String tagName, int numberOfInstances) {
+        Ec2Client ec2Client = Ec2Client.builder().region(region).build();
+        RunInstancesRequest runRequest = RunInstancesRequest.builder()
+                .instanceType(InstanceType.M4_LARGE)
+                .imageId(IMAGE_AMI)
+                .maxCount(numberOfInstances)
+                .minCount(1)
+                .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
+                .userData(Base64.getEncoder().encodeToString(script.getBytes()))
+                .build();
+
+        RunInstancesResponse response = ec2Client.runInstances(runRequest);
+
+        List<String> instanceIds = response.instances().stream()
+                .map(Instance::instanceId)
+                .toList();
+
+        // Tag each created instance
+        for (String instanceId : instanceIds) {
+            Tag tag = Tag.builder()
+                    .key("Name")
+                    .value(tagName)
+                    .build();
+
+            CreateTagsRequest tagRequest = CreateTagsRequest.builder()
+                    .resources(instanceId)
+                    .tags(tag)
+                    .build();
+
+            ec2Client.createTags(tagRequest);
+            System.out.printf(
+                    "[DEBUG] Successfully started EC2 instance %s based on AMI %s in region %s\n",
+                    instanceId, IMAGE_AMI, region);
+        }
+
+        return instanceIds;
+    }
 
 
 
@@ -622,8 +701,8 @@ public class AWS {
         return workerQueueName;
     }
 
-    public String getResultsQueueName() {
-        return resultsQueueName;
+    public String getResponsesQueueName() {
+        return responsesQueueName;
     }
 
     public String getInputFileS3Name() {
@@ -636,6 +715,10 @@ public class AWS {
 
     public String getSummariesS3Name() {
         return summariesS3Name;
+    }
+
+    public String getResponsesS3Name(){
+        return responsesS3Name;
     }
 
 
@@ -658,6 +741,7 @@ public class AWS {
             return "Invalid Label"; // maybe throw exception
         }
     }
+
 
 
     ///////////////////////
