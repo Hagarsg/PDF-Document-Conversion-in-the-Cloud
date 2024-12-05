@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="15:27">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/surefire-reports/TEST-WorkerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/surefire-reports/TEST-WorkerTest.xml" afterDir="false" />
+    </list>
+    <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="Changes by yuval" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Hagarsg&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Hagarsg/PDF-Document-Conversion-in-the-Cloud.git&quot;,
+    &quot;accountId&quot;: &quot;5ac567d4-e99b-415d-b618-82d71c78d3e2&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;Hagarsg&quot;,
+    &quot;repository&quot;: &quot;PDF-Document-Conversion-in-the-Cloud&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2pFdtpfJJ6oaJ37TAbdxyqWXuX8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LocalApplication.executor": "Run",
+    "Application.Manager.executor": "Run",
+    "Application.Worker.executor": "Run",
+    "Application.WorkerTest.executor": "Run",
+    "Application.workerTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "#1 on newBranch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/Local-App/src/main/java/com",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.sync",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Local-App/target" />
+      <recent name="$PROJECT_DIR$/Manager/src/main/resources" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/resources" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.WorkerTest">
+    <configuration name="LocalApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="homebrew-22" />
+      <option name="MAIN_CLASS_NAME" value="LocalApplication" />
+      <module name="Manager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Manager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Manager" />
+      <module name="Manager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Worker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Worker" />
+      <module name="Worker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WorkerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="WorkerTest" />
+      <module name="Manager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.WorkerTest" />
+      <item itemvalue="Application.Worker" />
+      <item itemvalue="Application.Manager" />
+      <item itemvalue="Application.LocalApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LocalApplication" />
+        <item itemvalue="Application.WorkerTest" />
+        <item itemvalue="Application.Worker" />
+        <item itemvalue="Application.Manager" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="" />
+      <created>1732365974845</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732365974845</updated>
+      <workItem from="1732365975915" duration="5746000" />
+      <workItem from="1732434991933" duration="227000" />
+      <workItem from="1732872331334" duration="4396000" />
+      <workItem from="1732985182553" duration="22506000" />
+      <workItem from="1733212138203" duration="177000" />
+      <workItem from="1733213267998" duration="6726000" />
+      <workItem from="1733240471460" duration="19409000" />
+      <workItem from="1733380330390" duration="95000" />
+      <workItem from="1733380429591" duration="1429000" />
+      <workItem from="1733381873185" duration="116000" />
+      <workItem from="1733381993851" duration="17154000" />
+      <workItem from="1733409003938" duration="513000" />
+      <workItem from="1733409532263" duration="3512000" />
+    </task>
+    <task id="LOCAL-00001" summary="hihi">
+      <option name="closed" value="true" />
+      <created>1732997735598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732997735598</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733240527739</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733240527739</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241018771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241018771</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241066575</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241066575</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733335746927</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733335746927</updated>
+    </task>
+    <task id="LOCAL-00006" summary="8:25">
+      <option name="closed" value="true" />
+      <created>1733379910718</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733379910718</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changes by yuval">
+      <option name="closed" value="true" />
+      <created>1733403457859</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733403457859</updated>
+    </task>
+    <task id="LOCAL-00008" summary="15:27">
+      <option name="closed" value="true" />
+      <created>1733405263178</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733405263178</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="hihi" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="8:25" />
+    <MESSAGE value="Changes by yuval" />
+    <MESSAGE value="15:27" />
+    <option name="LAST_COMMIT_MESSAGE" value="15:27" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Manager/src/main/java/Manager.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
