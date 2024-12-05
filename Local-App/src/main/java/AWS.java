@@ -19,7 +19,7 @@ import java.util.*;
 
 public class AWS {
 
-    public final String IMAGE_AMI = "ami-0e1b037ab311948d5";
+    public final String IMAGE_AMI = "ami-0fa5f1efb93cb517f";
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;

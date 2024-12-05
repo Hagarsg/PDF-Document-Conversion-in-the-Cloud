@@ -161,7 +161,7 @@ public class LocalApplication {
                     chmod +x /tmp/manager-bootstrap.sh
                     /tmp/manager-bootstrap.sh
                     """;
-                aws.createEC2WithLimit(script, "Manager", 1); // create manager EC2
+                aws.createEC2(script, "Manager", 1); // create manager EC2
             }
         } catch (InterruptedException e) {
             System.err.println("Error occurred while retrieving instances: " + e.getMessage());

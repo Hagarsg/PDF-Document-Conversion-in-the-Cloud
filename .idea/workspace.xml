@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="8:25">
-      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" afterDir="false" />
+    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="15:27">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/surefire-reports/TEST-WorkerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/surefire-reports/TEST-WorkerTest.xml" afterDir="false" />
     </list>
     <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="Changes by yuval" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,22 +50,22 @@
     &quot;assignee&quot;: &quot;Hagarsg&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Hagarsg/PDF-Document-Conversion-in-the-Cloud.git",
-    "accountId": "5ac567d4-e99b-415d-b618-82d71c78d3e2"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Hagarsg/PDF-Document-Conversion-in-the-Cloud.git&quot;,
+    &quot;accountId&quot;: &quot;5ac567d4-e99b-415d-b618-82d71c78d3e2&quot;
   },
-  "recentNewPullRequestHead": {
-    "server": {
-      "useHttp": false,
-      "host": "github.com",
-      "port": null,
-      "suffix": null
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
     },
-    "owner": "Hagarsg",
-    "repository": "PDF-Document-Conversion-in-the-Cloud"
+    &quot;owner&quot;: &quot;Hagarsg&quot;,
+    &quot;repository&quot;: &quot;PDF-Document-Conversion-in-the-Cloud&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -83,7 +99,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "settings.sync",
@@ -108,12 +124,11 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LocalApplication">
+  <component name="RunManager" selected="Application.WorkerTest">
     <configuration name="LocalApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="homebrew-22" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="LocalApplication" />
-      <module name="Local-App" />
+      <module name="Manager" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,28 +154,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="workerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="UNNAMED_CLASS_CONFIGURATION" value="true" />
-      <option name="MAIN_CLASS_NAME" value="workerTest" />
-      <module name="Worker" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.WorkerTest" />
-      <item itemvalue="Application.workerTest" />
       <item itemvalue="Application.Worker" />
       <item itemvalue="Application.Manager" />
       <item itemvalue="Application.LocalApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WorkerTest" />
-        <item itemvalue="Application.workerTest" />
-        <item itemvalue="Application.Manager" />
         <item itemvalue="Application.LocalApplication" />
+        <item itemvalue="Application.WorkerTest" />
         <item itemvalue="Application.Worker" />
+        <item itemvalue="Application.Manager" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +195,9 @@
       <workItem from="1733380330390" duration="95000" />
       <workItem from="1733380429591" duration="1429000" />
       <workItem from="1733381873185" duration="116000" />
-      <workItem from="1733381993851" duration="13416000" />
+      <workItem from="1733381993851" duration="17154000" />
+      <workItem from="1733409003938" duration="513000" />
+      <workItem from="1733409532263" duration="3512000" />
     </task>
     <task id="LOCAL-00001" summary="hihi">
       <option name="closed" value="true" />
@@ -248,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733403457859</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="15:27">
+      <option name="closed" value="true" />
+      <created>1733405263178</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733405263178</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +285,8 @@
     <MESSAGE value="updated" />
     <MESSAGE value="8:25" />
     <MESSAGE value="Changes by yuval" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by yuval" />
+    <MESSAGE value="15:27" />
+    <option name="LAST_COMMIT_MESSAGE" value="15:27" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
