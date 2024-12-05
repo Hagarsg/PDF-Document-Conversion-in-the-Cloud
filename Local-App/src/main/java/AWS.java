@@ -19,24 +19,36 @@ import java.util.*;
 
 public class AWS {
 
-    public final String IMAGE_AMI = "ami-08902199a8aa0bc09";
+    public final String IMAGE_AMI = "ami-0e1b037ab311948d5";
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
-    private final String bucketName;
-    private static AWS instance = null;
-    // private final int regionLim = 9;
+    private final String bucketName = "yuval-hagar-best-bucket";
+    private final String inputQueueName = "inputQueue";
+    private final String workerQueueName = "workerQueue";
+    private final String resultsQueueName = "resultsQueueName";
+    private final String inputFileS3Name = "input-files/";
+    private final String resultsS3Name = "results/";
+    private final String summariesS3Name = "summaries/";
+    private final String managerScriptPath = "manager-script";
+    private final String workerScriptPath = "worker-script";
+    private final String managerJarPath = "manager.jar";
+    private final String workerJarPath = "worker.jar";
 
+
+
+
+    private static AWS instance = null;
     private final int summaryLimit = 10;
+
 
 
     private AWS() {
         s3 = S3Client.builder().region(region1).build();
         sqs = SqsClient.builder().region(region1).build();
         ec2 = Ec2Client.builder().region(region1).build();
-        bucketName = "yuval-hagar-best-bucket";
     }
 
     public static AWS getInstance() {
@@ -49,18 +61,56 @@ public class AWS {
 
     //////////////////////////////////////////  EC2
 
-    // EC2
+//    // EC2
+//    public String createEC2(String script, String tagName, int numberOfInstances) {
+//        RunInstancesRequest runRequest = (RunInstancesRequest) RunInstancesRequest.builder()
+//                .instanceType(InstanceType.M4_LARGE)
+//                .imageId(IMAGE_AMI)
+//                .maxCount(numberOfInstances)
+//                .minCount(1)
+//                .keyName("vockey")
+//                .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
+//                .userData(Base64.getEncoder().encodeToString((script).getBytes()))
+//                .build();
+//
+//
+//        RunInstancesResponse response = ec2.runInstances(runRequest);
+//
+//        String instanceId = response.instances().get(0).instanceId();
+//
+//        Tag tag = Tag.builder()
+//                .key("Name")
+//                .value(tagName)
+//                .build();
+//
+//        CreateTagsRequest tagRequest = (CreateTagsRequest) CreateTagsRequest.builder()
+//                .resources(instanceId)
+//                .tags(tag)
+//                .build();
+//
+//        try {
+//            ec2.createTags(tagRequest);
+//            System.out.printf(
+//                    "[DEBUG] Successfully started EC2 instance %s based on AMI %s\n",
+//                    instanceId, IMAGE_AMI);
+//
+//        } catch (Ec2Exception e) {
+//            System.err.println("[ERROR] " + e.getMessage());
+//            System.exit(1);
+//        }
+//        return instanceId;
+//    }
+
     public String createEC2(String script, String tagName, int numberOfInstances) {
-        RunInstancesRequest runRequest = (RunInstancesRequest) RunInstancesRequest.builder()
+        // Remove the keyName as we're not using a key pair
+        RunInstancesRequest runRequest = RunInstancesRequest.builder()
                 .instanceType(InstanceType.M4_LARGE)
                 .imageId(IMAGE_AMI)
                 .maxCount(numberOfInstances)
                 .minCount(1)
-                .keyName("vockey")
                 .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
-                .userData(Base64.getEncoder().encodeToString((script).getBytes()))
+                .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                 .build();
-
 
         RunInstancesResponse response = ec2.runInstances(runRequest);
 
@@ -71,7 +121,7 @@ public class AWS {
                 .value(tagName)
                 .build();
 
-        CreateTagsRequest tagRequest = (CreateTagsRequest) CreateTagsRequest.builder()
+        CreateTagsRequest tagRequest = CreateTagsRequest.builder()
                 .resources(instanceId)
                 .tags(tag)
                 .build();
@@ -553,6 +603,9 @@ public class AWS {
                 .build());
     }
 
+    /////////// Getter Methods
+
+
     public int getSummaryLimit(){
         return summaryLimit;
     }
@@ -561,6 +614,50 @@ public class AWS {
         return bucketName;
     }
 
+    public String getInputQueueName() {
+        return inputQueueName;
+    }
+
+    public String getWorkerQueueName() {
+        return workerQueueName;
+    }
+
+    public String getResultsQueueName() {
+        return resultsQueueName;
+    }
+
+    public String getInputFileS3Name() {
+        return inputFileS3Name;
+    }
+
+    public String getResultsS3Name() {
+        return resultsS3Name;
+    }
+
+    public String getSummariesS3Name() {
+        return summariesS3Name;
+    }
+
+
+    public String getScriptPath(Label label) {
+        if (label == Label.Manager) {
+            return managerScriptPath;
+        } else if (label == Label.Worker) {
+            return workerScriptPath;
+        } else {
+            return "Invalid Label"; // maybe throw exception
+        }
+    }
+
+    public String getJarPath(Label label) {
+        if (label == Label.Manager) {
+            return managerJarPath;
+        } else if (label == Label.Worker) {
+            return workerJarPath;
+        } else {
+            return "Invalid Label"; // maybe throw exception
+        }
+    }
 
 
     ///////////////////////

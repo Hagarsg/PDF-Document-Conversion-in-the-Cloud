@@ -5,20 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="updated">
-      <change afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Local-App/src/main/resources/manager-bootstrap.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Manager/src/main/resources/worker-bootstrap.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS$Label.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/AWS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/outPutFile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/your-artifact-id-1.0-SNAPSHOT.jar" beforeDir="false" />
+    </list>
+    <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="">
+      <change beforePath="$PROJECT_DIR$/Manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
-    <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,8 +54,12 @@
     &quot;accountId&quot;: &quot;5ac567d4-e99b-415d-b618-82d71c78d3e2&quot;
   }
 }</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -62,7 +78,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "newBranch",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/hagarsamimigolan/GitProject/Yuval&Hagar",
+    "last_opened_file_path": "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/Local-App/src/main/java/com",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,12 +92,15 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Local-App/target" />
-      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
-      <recent name="$PROJECT_DIR$/Worker/src/main/java" />
-      <recent name="$PROJECT_DIR$/Manager/src/main/java" />
+      <recent name="$PROJECT_DIR$/Manager/src/main/resources" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/resources" />
       <recent name="$PROJECT_DIR$/Local-App/src/main/java" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -92,7 +111,10 @@
   </component>
   <component name="RunManager" selected="Application.LocalApplication">
     <configuration name="LocalApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="homebrew-22" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="LocalApplication" />
+      <module name="Local-App" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -137,7 +159,7 @@
       <workItem from="1732985182553" duration="22506000" />
       <workItem from="1733212138203" duration="177000" />
       <workItem from="1733213267998" duration="6726000" />
-      <workItem from="1733240471460" duration="499000" />
+      <workItem from="1733240471460" duration="19084000" />
     </task>
     <task id="LOCAL-00001" summary="hihi">
       <option name="closed" value="true" />
@@ -155,7 +177,31 @@
       <option name="project" value="LOCAL" />
       <updated>1733240527739</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241018771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241018771</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241066575</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241066575</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733335746927</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733335746927</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

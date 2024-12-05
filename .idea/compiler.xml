@@ -9,11 +9,12 @@
         <module name="Worker" />
         <module name="Manager" />
         <module name="Local-App" />
-        <module name="Worker (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api" target="22" />
+      <module name="Worker (1)" target="22" />
+      <module name="Worker (2)" target="22" />
     </bytecodeTargetLevel>
   </component>
 </project>
