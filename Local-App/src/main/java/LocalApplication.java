@@ -22,8 +22,8 @@ public class LocalApplication {
 
 
     public static void main(String[] args) {// args = [inFilePath, outFilePath, tasksPerWorker, -t (terminate, optional)]
-        args = new String[]{"/Users/hagarsamimigolan/GitProject/Yuval&Hagar/newInputFIle.txt",
-                "/Users/hagarsamimigolan/GitProject/PDF-Document-Conversion-in-the-Cloud/Local-App/target/outPutFile", "10", "-t"};
+        args = new String[]{"/Users/hagarsamimigolan/GitProject/Yuval&Hagar/newInputFile.txt",
+                "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/outputFile.html", "10", "-t"};
         if (args.length < 3) {
             System.out.println("Usage: LocalApplication <inputFilePath> <outputFilePath> [tasksPerWorker] [-t]");
             return;

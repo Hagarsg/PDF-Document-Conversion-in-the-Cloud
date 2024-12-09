@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="15:27">
+    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="10:50">
+      <change afterPath="$PROJECT_DIR$/newInputFile.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/outputFile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Local-App/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/Local-App-1.0-SNAPSHOT.jar" afterDir="false" />
@@ -15,35 +16,25 @@
       <change beforePath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/LocalApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/test/java/ManagerOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/target/classes/AWS$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/AWS$Label.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/AWS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/target/classes/Manager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/Manager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/target/classes/com/yourcompany/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/classes/com/yourcompany/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/src/test/java/WorkerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/test/java/WorkerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/target/classes/AWS$Label.class" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/classes/AWS$Label.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/target/classes/AWS.class" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/classes/AWS.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Worker/target/classes/Worker.class" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/classes/Worker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/target/surefire-reports/TEST-WorkerTest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/target/surefire-reports/WorkerTest.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Worker/target/test-classes/WorkerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/downloaded.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <list id="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" name="Changes by yuval" comment="Changes by yuval">
-      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/AWS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/AWS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/test/java/ManagerOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/test/java/ManagerOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/test/java/ManagerOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/Worker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,96 +84,7 @@
     <file path="$PROJECT_DIR$/Local-App/src/main/java/LocalApplication.java">
       <ranges>
         <range start1="24" end1="26" start2="24" end2="26" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="54" end1="54" start2="54" end2="55" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="55" end1="55" start2="56" end2="57" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="163" end1="164" start2="165" end2="166" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Manager/src/main/java/AWS.java">
-      <ranges>
-        <range start1="21" end1="22" start2="21" end2="22" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="25" end1="26" start2="25" end2="26" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="45" end1="46" start2="45" end2="45" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="49" end1="49" start2="48" end2="59" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="52" end1="54" start2="62" end2="64" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="55" end1="62" start2="65" end2="65" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="105" end1="105" start2="108" end2="109" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="113" end1="113" start2="117" end2="118" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="244" end1="245" start2="249" end2="250" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="249" end1="258" start2="254" end2="259" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="259" end1="268" start2="260" end2="261" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="269" end1="272" start2="262" end2="264" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="273" end1="304" start2="265" end2="275" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="305" end1="306" start2="276" end2="277" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="307" end1="310" start2="278" end2="282" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="311" end1="317" start2="283" end2="287" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="318" end1="322" start2="288" end2="292" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="323" end1="328" start2="293" end2="301" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="329" end1="330" start2="302" end2="313" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="587" end1="587" start2="570" end2="593" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="588" end1="588" start2="594" end2="595" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="589" end1="589" start2="596" end2="598" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="590" end1="609" start2="599" end2="611" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="677" end1="677" start2="679" end2="686" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="678" end1="684" start2="687" end2="701" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Manager/src/test/java/ManagerOld.java">
-      <ranges>
-        <range start1="14" end1="14" start2="14" end2="15" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="15" end1="16" start2="16" end2="18" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="17" end1="18" start2="19" end2="20" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="23" end1="23" start2="25" end2="26" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="24" end1="24" start2="27" end2="45" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="36" end1="36" start2="57" end2="58" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="37" end1="37" start2="59" end2="60" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="39" end1="39" start2="62" end2="63" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="40" end1="41" start2="64" end2="66" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="47" end1="48" start2="72" end2="73" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="83" end1="85" start2="108" end2="108" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="87" end1="89" start2="110" end2="110" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="90" end1="91" start2="111" end2="112" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="92" end1="100" start2="113" end2="126" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="101" end1="102" start2="127" end2="128" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="129" end1="130" start2="155" end2="156" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="144" end1="145" start2="170" end2="171" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="148" end1="153" start2="174" end2="179" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="154" end1="156" start2="180" end2="182" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="157" end1="163" start2="183" end2="189" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="164" end1="187" start2="190" end2="223" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="188" end1="193" start2="224" end2="229" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="194" end1="194" start2="230" end2="274" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="207" end1="207" start2="287" end2="387" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="208" end1="262" start2="388" end2="443" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="329" end1="329" start2="510" end2="513" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/Local-App/src/main/java/AWS.java">
-      <ranges>
-        <range start1="21" end1="22" start2="21" end2="22" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="25" end1="26" start2="25" end2="26" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="45" end1="46" start2="45" end2="45" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="49" end1="56" start2="48" end2="48" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="58" end1="59" start2="50" end2="55" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="64" end1="64" start2="60" end2="67" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="113" end1="113" start2="116" end2="117" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
-        <range start1="244" end1="245" start2="248" end2="249" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="249" end1="258" start2="253" end2="258" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="259" end1="268" start2="259" end2="260" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="269" end1="272" start2="261" end2="263" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="273" end1="304" start2="264" end2="274" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="305" end1="306" start2="275" end2="276" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="307" end1="310" start2="277" end2="281" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="311" end1="317" start2="282" end2="286" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="318" end1="322" start2="287" end2="291" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="323" end1="328" start2="292" end2="300" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="329" end1="330" start2="301" end2="312" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="587" end1="587" start2="569" end2="592" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="588" end1="588" start2="593" end2="594" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="589" end1="589" start2="595" end2="597" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="590" end1="609" start2="598" end2="610" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="677" end1="677" start2="678" end2="685" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
-        <range start1="678" end1="684" start2="686" end2="700" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
+        <range start1="116" end1="145" start2="116" end2="116" changelist="2d6693a4-97db-447e-a5ba-e36e7e4a3e4f" />
       </ranges>
     </file>
   </component>
@@ -198,31 +100,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LocalApplication.executor": "Run",
-    "Application.Manager.executor": "Run",
-    "Application.ManagerOld.executor": "Run",
-    "Application.Worker.executor": "Run",
-    "Application.WorkerTest.executor": "Run",
-    "Application.workerTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#1 on newBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/Local-App/src/main/java/com",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "settings.sync",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LocalApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Manager.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ManagerOld.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Worker.executor&quot;: &quot;Run&quot;,
+    &quot;Application.WorkerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Application.workerTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#1 on newBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hagarsamimigolan/GitProject/Yuval&amp;Hagar/Local-App/src/main/java/com&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
@@ -280,18 +182,18 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Worker" />
         <item itemvalue="Application.LocalApplication" />
-        <item itemvalue="Application.ManagerOld" />
+        <item itemvalue="Application.Worker" />
         <item itemvalue="Application.Manager" />
+        <item itemvalue="Application.ManagerOld" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -315,7 +217,8 @@
       <workItem from="1733381873185" duration="116000" />
       <workItem from="1733381993851" duration="17154000" />
       <workItem from="1733409003938" duration="513000" />
-      <workItem from="1733409532263" duration="40706000" />
+      <workItem from="1733409532263" duration="59981000" />
+      <workItem from="1733756898052" duration="71000" />
     </task>
     <task id="LOCAL-00001" summary="hihi">
       <option name="closed" value="true" />
@@ -389,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733413085163</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="10:50">
+      <option name="closed" value="true" />
+      <created>1733734207563</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733734207563</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,6 +323,7 @@
     <MESSAGE value="8:25" />
     <MESSAGE value="Changes by yuval" />
     <MESSAGE value="15:27" />
-    <option name="LAST_COMMIT_MESSAGE" value="15:27" />
+    <MESSAGE value="10:50" />
+    <option name="LAST_COMMIT_MESSAGE" value="10:50" />
   </component>
 </project>
