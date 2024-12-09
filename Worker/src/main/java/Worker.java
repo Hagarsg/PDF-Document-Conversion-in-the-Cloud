@@ -7,14 +7,12 @@ import software.amazon.awssdk.services.sqs.model.Message;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.List;
 import javax.imageio.ImageIO;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
+
 
 public class Worker {
 
@@ -43,9 +41,17 @@ public static void start() {
                 System.out.println("Received message: " + m.body()); // Debug: Show message content
 
                 String[] parts = m.body().split("\t");
+                if (parts.length < 3) {
+                    System.out.println("Invalid message format (maybe inputfile parsing is wrong): " + m.body());
+                    // Send an error response or skip this message
+                    aws.deleteMessage(workersQueueUrl, m);
+                    continue; // Skip to the next message
+                }
+
                 String operation = parts[0];
                 String pdfUrl = parts[1];
                 String fileId = parts[2];
+
 
                 System.out.println("Parsed message -> Operation: " + operation + ", PDF URL: " + pdfUrl + ", File ID: " + fileId); // Debug: Parsing details
 
@@ -57,6 +63,11 @@ public static void start() {
                 try {
                     // Downloading PDF
                     pdfFile = downloadPDF(pdfUrl);
+
+                    // Validate the downloaded file
+                    if (pdfFile == null || !pdfFile.exists() || pdfFile.length() == 0) {
+                        throw new IOException("Invalid or empty PDF file.");
+                    }
 
                     // Performing Operation
                     System.out.println("Performing operation: " + operation); // Debug: Performing operation
@@ -76,6 +87,8 @@ public static void start() {
                     aws.sendMessage(responsesQueueUrl, responseMessage);
                 } catch (IOException e) { // If file does not exist or operation failed
                     // Instead of result path, send an error message
+
+
                     System.out.println("Error occurred while processing task: " + e.getMessage()); // Debug: Error processing task
                     String errorMsg = "Error processing task: " + e.getMessage();
 
@@ -100,15 +113,20 @@ public static void start() {
                     }
 
                     try { // Delete local result file
-                        System.out.println("Attempting to delete result file: " + resultFile.getAbsolutePath()); // Debug: Deleting result file
-                        if (Files.deleteIfExists(resultFile.toPath())) {
-                            System.out.println("Result file deleted successfully.");
+                        if (resultFile != null) {
+                            System.out.println("Attempting to delete result file: " + resultFile.getAbsolutePath());
+                            if (Files.deleteIfExists(resultFile.toPath())) {
+                                System.out.println("Result file deleted successfully.");
+                            } else {
+                                System.out.println("Result file did not exist.");
+                            }
                         } else {
-                            System.out.println("Result file did not exist.");
+                            System.out.println("Result file is null, skipping deletion.");
                         }
                     } catch (IOException e) {
                         System.out.println("Error deleting result file: " + e.getMessage());
                     }
+
                 }
             }
 
@@ -118,17 +136,41 @@ public static void start() {
     }
 }
 
+    private static File downloadPDF(String pdfUrl) throws IOException {
+        String outputFileName = "downloaded.pdf";
+        File pdfFile = new File(outputFileName);
 
-    private static File downloadPDF(String pdfUrl) throws IOException, InterruptedException {
-        Path pdfPath = Path.of("downloaded.pdf");
-        HttpClient httpClient = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(pdfUrl))
-                .GET()
-                .build();
-        httpClient.send(request, HttpResponse.BodyHandlers.ofFile(pdfPath));
-        return pdfPath.toFile();
+        // Open connection to the URL
+        URL url = new URL(pdfUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(10000);
+        connection.setReadTimeout(10000);
+
+        // Check the HTTP response code
+        int responseCode = connection.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Failed to download PDF. HTTP Status: " + responseCode);
+        }
+
+        // Write the file to disk
+        try (InputStream inputStream = connection.getInputStream();
+             FileOutputStream fileOutputStream = new FileOutputStream(pdfFile)) {
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+        // Validate the file
+        if (!pdfFile.exists() || pdfFile.length() == 0) {
+            throw new IOException("Downloaded file is empty or does not exist.");
+        }
+
+        return pdfFile;
     }
+
 
     private static File performOperation(String operation, File pdfFile) throws IOException {
         switch (operation) {
@@ -178,15 +220,12 @@ public static void start() {
         document.close();
         return outputFile;
     }
-
-
-                /* Repeatedly:
-                ▪ Get a message from an SQS queue.
-                ▪ Download the PDF file indicated in the message.
-                ▪ Perform the operation requested on the file.
-                ▪ Upload the resulting output file to S3.
-                ▪ Put a message in an SQS queue indicating the original URL of the PDF, the S3 url of the new
-                image file, and the operation that was performed.
-                ▪ remove the processed message from the SQS queue. */
-
+   /* Repeatedly:
+    ▪ Get a message from an SQS queue.
+    ▪ Download the PDF file indicated in the message.
+    ▪ Perform the operation requested on the file.
+    ▪ Upload the resulting output file to S3.
+    ▪ Put a message in an SQS queue indicating the original URL of the PDF, the S3 url of the new
+    image file, and the operation that was performed.
+    ▪ remove the processed message from the SQS queue. */
 }

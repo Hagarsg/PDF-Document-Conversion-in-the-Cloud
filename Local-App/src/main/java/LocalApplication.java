@@ -44,7 +44,7 @@ public class LocalApplication {
             aws.uploadFileToS3(keyPath, new File(inFilePath)); 
 
             // send message to inputQueue
-            String messageBody = String.format("%s\t%s", keyPath, tasksPerWorker);
+            String messageBody = String.format("%s\t%s\t%s", keyPath, tasksPerWorker, terminate);
             String msgId = aws.sendMessage(inputQueueUrl, messageBody); 
 
             // "subscribe" to correct summary queue
@@ -63,17 +63,11 @@ public class LocalApplication {
             // creates html output file
             summaryToHTML(summaryFile);
 
-            // Check if we need to send a termination message
-            if (terminate) {
-                aws.sendMessage(inputQueueUrl, "terminate"); // Send termination message to the queue
-                System.out.println("Terminate message sent.");
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    
 
     //Create Buckets, Create Queues, Upload JARs to S3
     private static void setup() {
