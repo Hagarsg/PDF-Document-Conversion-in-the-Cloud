@@ -25,62 +25,99 @@ public class Worker {
     }
 
 
-    public static void start() {
-        while (true) {
-            // Get a message from an SQS queue
-            String workersQueueUrl = aws.getQueueUrl("workersQueue");
-            String responsesQueueUrl = aws.getQueueUrl("responsesQueue");
-            try {
-                List<Message> messages = aws.receiveMessages(workersQueueUrl);
-                if (messages == null) continue; // No messages, keep polling
-                
-                // Parse the message
-                for (Message m : messages){
-                    String[] parts = m.body().split("\t");
-                    String operation = parts[0];
-                    String pdfUrl = parts[1];
-                    String fileId = parts[2];
+public static void start() {
+    while (true) {
+        // Get a message from an SQS queue
+        String workersQueueUrl = aws.getQueueUrl(aws.getWorkerQueueName());
+        String responsesQueueUrl = aws.getQueueUrl(aws.getResponsesQueueName());
+        try {
+            System.out.println("Polling SQS queue: " + workersQueueUrl); // Debug: Polling the queue
+            List<Message> messages = aws.receiveMessages(workersQueueUrl);
+            if (messages == null || messages.isEmpty()) {
+                System.out.println("No messages in the queue, continuing to poll..."); // Debug: No messages
+                continue; // No messages, keep polling
+            }
 
-                    // Download the PDF file and perform operation
-                    File pdfFile = downloadPDF(pdfUrl);
-                    File resultFile = performOperation(operation, pdfFile);
+            // Parse the message
+            for (Message m : messages) {
+                System.out.println("Received message: " + m.body()); // Debug: Show message content
 
-                    // Upload the result to S3   
+                String[] parts = m.body().split("\t");
+                String operation = parts[0];
+                String pdfUrl = parts[1];
+                String fileId = parts[2];
+
+                System.out.println("Parsed message -> Operation: " + operation + ", PDF URL: " + pdfUrl + ", File ID: " + fileId); // Debug: Parsing details
+
+                // Download the PDF file and perform operation
+                System.out.println("Downloading PDF from URL: " + pdfUrl); // Debug: Downloading PDF
+
+                File pdfFile = null;
+                File resultFile = null;
+                try {
+                    // Downloading PDF
+                    pdfFile = downloadPDF(pdfUrl);
+
+                    // Performing Operation
+                    System.out.println("Performing operation: " + operation); // Debug: Performing operation
+                    resultFile = performOperation(operation, pdfFile);
+
+                    // Upload the result to S3
                     String s3ResultsPath = aws.getResultsS3Name() + m.messageId();
+                    System.out.println("Uploading result file to S3 path: " + s3ResultsPath); // Debug: Uploading to S3
                     String resultS3Url = aws.uploadFileToS3(s3ResultsPath, resultFile);
+                    System.out.println("Result uploaded to S3, URL: " + resultS3Url); // Debug: Result uploaded
+
+                    // Create Response Message
                     String responseMessage = String.format("%s\t%s\t%s\t%s", operation, pdfUrl, s3ResultsPath, fileId);
 
-                    // Send success message to the responses queue and Remove the processed message from the task queue
+                    //Send Response Message
+                    System.out.println("Sending response message: " + responseMessage); // Debug: Sending response
                     aws.sendMessage(responsesQueueUrl, responseMessage);
-                    aws.deleteMessage(workersQueueUrl, m);
+                } catch (IOException e) { // If file does not exist or operation failed
+                    // Instead of result path, send an error message
+                    System.out.println("Error occurred while processing task: " + e.getMessage()); // Debug: Error processing task
+                    String errorMsg = "Error processing task: " + e.getMessage();
 
-                    try { // delete local output file in order to handle next message
+                    // Create Response Message with error
+                    String responseMessage = String.format("%s\t%s\t%s\t%s", operation, pdfUrl, errorMsg, fileId);
+
+                    // Send Message to Response Queue
+                    System.out.println("Sending response message: " + responseMessage); // Debug: Sending response
+                    aws.sendMessage(responsesQueueUrl, responseMessage);
+                } finally {
+                    System.out.println("Deleting processed message from workers queue: " + m.messageId()); // Debug: Deleting message
+                    aws.deleteMessage(workersQueueUrl, m);
+                    try { // Delete local input file
+                        System.out.println("Attempting to delete PDF file: " + pdfFile.getAbsolutePath()); // Debug: Deleting PDF file
                         if (Files.deleteIfExists(pdfFile.toPath())) {
-                            System.out.println("File deleted successfully.");
+                            System.out.println("PDF file deleted successfully.");
                         } else {
-                            System.out.println("File did not exist.");
+                            System.out.println("PDF file did not exist.");
                         }
                     } catch (IOException e) {
-                        System.out.println("An error occurred: " + e.getMessage());
+                        System.out.println("Error deleting PDF file: " + e.getMessage());
                     }
 
-                    try { // delete local output file in order to handle next message
+                    try { // Delete local result file
+                        System.out.println("Attempting to delete result file: " + resultFile.getAbsolutePath()); // Debug: Deleting result file
                         if (Files.deleteIfExists(resultFile.toPath())) {
-                            System.out.println("File deleted successfully.");
+                            System.out.println("Result file deleted successfully.");
                         } else {
-                            System.out.println("File did not exist.");
+                            System.out.println("Result file did not exist.");
                         }
                     } catch (IOException e) {
-                        System.out.println("An error occurred: " + e.getMessage());
+                        System.out.println("Error deleting result file: " + e.getMessage());
                     }
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                aws.sendMessage(responsesQueueUrl, "Error processing task: " + e.getMessage());
             }
+
+        } catch (Exception e) {
+            System.out.println("Error deleting PDF file: " + e.getMessage());
         }
     }
+}
+
 
     private static File downloadPDF(String pdfUrl) throws IOException, InterruptedException {
         Path pdfPath = Path.of("downloaded.pdf");

@@ -19,7 +19,7 @@ import java.util.*;
 
 public class AWS {
 
-    public final String IMAGE_AMI = "ami-0fa5f1efb93cb517f";
+    public final String IMAGE_AMI = "ami-04222fdf1b349e78e";
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
@@ -50,8 +50,8 @@ public class AWS {
 
     private AWS() {
         s3 = S3Client.builder().region(region1).build();
-        sqs = SqsClient.builder().region(region1).build();
-        ec2 = Ec2Client.builder().region(region1).build();
+        sqs = SqsClient.builder().region(region1).build(); // see if matters what region
+        ec2 = Ec2Client.builder().region(region2).build();
     }
 
     public static AWS getInstance() {
@@ -104,6 +104,7 @@ public class AWS {
 //        return instanceId;
 //    }
 
+
     public String createEC2(String script, String tagName, int numberOfInstances) {
         // Remove the keyName as we're not using a key pair
         RunInstancesRequest runRequest = RunInstancesRequest.builder()
@@ -111,6 +112,7 @@ public class AWS {
                 .imageId(IMAGE_AMI)
                 .maxCount(numberOfInstances)
                 .minCount(1)
+                .keyName("vockey")
                 .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                 .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                 .build();
@@ -242,92 +244,70 @@ public class AWS {
 
         System.out.println("Terminated instance: " + instanceId);
     }
-    /// ///////// new methods for ec2
+    /// ///////// new method for ec2
 
     public List<String> createEC2WithLimit(String script, String tagName, int requestedInstances) {
         List<String> createdInstanceIds = new ArrayList<>();
 
-        synchronized (this) { // Ensures thread safety
-            // Check capacity in region 1
-            int region1Available = ec2RegionLimit - countRunningInstances(region1);
+        synchronized (this) { // precaution
+            // Get all instances in the region and count the running ones
+            int runningInstances = (int) getAllInstances().stream()
+                    .filter(instance -> instance.state().name().equals(InstanceStateName.RUNNING))
+                    .count();
 
-            if (region1Available > 0) {
-                int instancesToCreate = Math.min(region1Available, requestedInstances);
-                createdInstanceIds.addAll(createEC2InRegion(region1, script, tagName, instancesToCreate));
-                requestedInstances -= instancesToCreate;
-            }
+            int availableCapacity = ec2RegionLimit - runningInstances;
 
-            // Check capacity in region 2 if more instances are needed
-            if (requestedInstances > 0) {
-                int region2Available = ec2RegionLimit - countRunningInstances(region2);
-                if (region2Available > 0) {
-                    int instancesToCreate = Math.min(region2Available, requestedInstances);
-                    createdInstanceIds.addAll(createEC2InRegion(region2, script, tagName, instancesToCreate));
-                }
+            if (availableCapacity > 0) {
+                int instancesToCreate = Math.min(availableCapacity, requestedInstances);
+
+                // Create EC2 instances
+                RunInstancesRequest runRequest = RunInstancesRequest.builder()
+                        .instanceType(InstanceType.M4_LARGE)
+                        .imageId(IMAGE_AMI)
+                        .maxCount(instancesToCreate)
+                        .minCount(1)
+                        .keyName("vockey")
+                        .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
+                        .userData(Base64.getEncoder().encodeToString(script.getBytes()))
+                        .build();
+
+                RunInstancesResponse response = ec2.runInstances(runRequest);
+
+                // Collect instance IDs and tag them
+                createdInstanceIds = response.instances().stream()
+                        .map(instance -> {
+                            String instanceId = instance.instanceId();
+
+                            Tag tag = Tag.builder()
+                                    .key("Name")
+                                    .value(tagName)
+                                    .build();
+
+                            CreateTagsRequest tagRequest = CreateTagsRequest.builder()
+                                    .resources(instanceId)
+                                    .tags(tag)
+                                    .build();
+
+                            try {
+                                ec2.createTags(tagRequest);
+                                System.out.printf(
+                                        "[DEBUG] Successfully started EC2 instance %s based on AMI %s\n",
+                                        instanceId, IMAGE_AMI);
+                            } catch (Ec2Exception e) {
+                                System.err.println("[ERROR] " + e.getMessage());
+                            }
+
+                            return instanceId;
+                        })
+                        .toList();
             }
         }
 
         if (createdInstanceIds.isEmpty()) {
-            throw new RuntimeException("Cannot create instances: Both regions are at maximum capacity.");
+            throw new RuntimeException("Cannot create instances: Region is at maximum capacity.");
         }
 
         return createdInstanceIds;
-    }
-
-    // Count running instances in a specific region
-    private int countRunningInstances(Region region) {
-        Ec2Client ec2Client = Ec2Client.builder().region(region).build();
-        DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()
-                .filters(Filter.builder()
-                        .name("instance-state-name")
-                        .values("running")
-                        .build())
-                .build();
-
-        DescribeInstancesResponse response = ec2Client.describeInstances(describeInstancesRequest);
-
-        return response.reservations().stream()
-                .mapToInt(r -> r.instances().size())
-                .sum();
-    }
-
-    // Create EC2 instances in a specific region
-    private List<String> createEC2InRegion(Region region, String script, String tagName, int numberOfInstances) {
-        Ec2Client ec2Client = Ec2Client.builder().region(region).build();
-        RunInstancesRequest runRequest = RunInstancesRequest.builder()
-                .instanceType(InstanceType.M4_LARGE)
-                .imageId(IMAGE_AMI)
-                .maxCount(numberOfInstances)
-                .minCount(1)
-                .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
-                .userData(Base64.getEncoder().encodeToString(script.getBytes()))
-                .build();
-
-        RunInstancesResponse response = ec2Client.runInstances(runRequest);
-
-        List<String> instanceIds = response.instances().stream()
-                .map(Instance::instanceId)
-                .toList();
-
-        // Tag each created instance
-        for (String instanceId : instanceIds) {
-            Tag tag = Tag.builder()
-                    .key("Name")
-                    .value(tagName)
-                    .build();
-
-            CreateTagsRequest tagRequest = CreateTagsRequest.builder()
-                    .resources(instanceId)
-                    .tags(tag)
-                    .build();
-
-            ec2Client.createTags(tagRequest);
-            System.out.printf(
-                    "[DEBUG] Successfully started EC2 instance %s based on AMI %s in region %s\n",
-                    instanceId, IMAGE_AMI, region);
-        }
-
-        return instanceIds;
     }
 
 
@@ -675,13 +655,28 @@ public class AWS {
         }
     }
 
-    public void deleteMessage(String queueUrl, Message message) {
-        sqs.deleteMessage(DeleteMessageRequest.builder()
-                .queueUrl(queueUrl)
-                .receiptHandle(message.receiptHandle()) // Correct method for SDK v2
-                .build());
-    }
+//    public void deleteMessage(String queueUrl, Message message) {
+//        sqs.deleteMessage(DeleteMessageRequest.builder()
+//                .queueUrl(queueUrl)
+//                .receiptHandle(message.receiptHandle()) // Correct method for SDK v2
+//                .build());
+//    }
 
+    public void deleteMessage(String queueUrl, Message message) {
+        String receiptHandle = message.receiptHandle();
+        System.out.println("Attempting to delete message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl);
+
+        try {
+            sqs.deleteMessage(DeleteMessageRequest.builder()
+                    .queueUrl(queueUrl)
+                    .receiptHandle(receiptHandle)
+                    .build());
+            System.out.println("Successfully deleted message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl);
+        } catch (Exception e) {
+            System.out.println("Failed to delete message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl
+                    + ". Error: " + e.getMessage());
+        }
+    }
     /////////// Getter Methods
 
 

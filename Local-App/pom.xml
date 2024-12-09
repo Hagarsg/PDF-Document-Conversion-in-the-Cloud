@@ -55,7 +55,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- Dependency on Manager Module -->
+        <!-- Dependency on ManagerOld Module -->
         <dependency>
             <groupId>com.yourcompany</groupId>
             <artifactId>Manager</artifactId>
@@ -65,13 +65,13 @@
 
     <build>
         <plugins>
-            <!-- Plugin to copy Manager and Worker JARs into Local-App resources -->
+            <!-- Plugin to copy ManagerOld and Worker JARs into Local-App resources -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.3.0</version>
                 <executions>
-                    <!-- Copy Manager JAR -->
+                    <!-- Copy ManagerOld JAR -->
                     <execution>
                         <id>copy-manager-jar</id>
                         <phase>process-resources</phase>

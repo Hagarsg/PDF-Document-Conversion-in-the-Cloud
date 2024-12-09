@@ -19,7 +19,7 @@ import java.util.*;
 
 public class AWS {
 
-    public final String IMAGE_AMI = "ami-0fa5f1efb93cb517f";
+    public final String IMAGE_AMI = "ami-04222fdf1b349e78e";
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
@@ -111,6 +111,7 @@ public class AWS {
                 .imageId(IMAGE_AMI)
                 .maxCount(numberOfInstances)
                 .minCount(1)
+                .keyName("vockey")
                 .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                 .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                 .build();

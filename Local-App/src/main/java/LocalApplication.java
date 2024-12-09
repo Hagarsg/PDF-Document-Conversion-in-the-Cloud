@@ -22,8 +22,8 @@ public class LocalApplication {
 
 
     public static void main(String[] args) {// args = [inFilePath, outFilePath, tasksPerWorker, -t (terminate, optional)]
-        args = new String[]{"/Users/hagarsamimigolan/Downloads/input-sample-1 (1).txt",
-                "/Users/hagarsamimigolan/GitProject/PDF-Document-Conversion-in-the-Cloud/Local-App/target/outPutFile", "10"};
+        args = new String[]{"/Users/hagarsamimigolan/GitProject/Yuval&Hagar/newInputFIle.txt",
+                "/Users/hagarsamimigolan/GitProject/PDF-Document-Conversion-in-the-Cloud/Local-App/target/outPutFile", "10", "-t"};
         if (args.length < 3) {
             System.out.println("Usage: LocalApplication <inputFilePath> <outputFilePath> [tasksPerWorker] [-t]");
             return;
@@ -52,7 +52,9 @@ public class LocalApplication {
             summaryQueueUrl = aws.getQueueUrl("summaryQueue_" + summaryNum); 
             while (summary == null) {
                 summary = aws.receiveMessageWithId(summaryQueueUrl, msgId);
+
             }
+            System.out.println("Got the summary file" + summary.body());
 
             // download summary from s3
             File summaryFile = new File("local-summary.txt");
