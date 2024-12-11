@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AWS {
 
@@ -23,7 +24,7 @@ public class AWS {
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
-
+    private static volatile AWS instance;
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
@@ -39,26 +40,33 @@ public class AWS {
     private final String workerScriptPath = "worker-script";
     private final String managerJarPath = "manager.jar";
     private final String workerJarPath = "worker.jar";
+    private final int visibilityTimeoutSeconds = 10;
+//    private final int workerVisibilityTO = 10;
+//    private final int responseVisibilityTO = 10;
+//    private final int summaryVisibilityTO = 10;
 
 
 
 
-    private static AWS instance = null;
     private final int summaryLimit = 10;
 
+
+    public static AWS getInstance() {
+        if (instance == null) {
+            synchronized (AWS.class) {
+                if (instance == null) {
+                    instance = new AWS();
+                }
+            }
+        }
+        return instance;
+    }
 
 
     private AWS() {
         s3 = S3Client.builder().region(region1).build();
         sqs = SqsClient.builder().region(region1).build(); // see if matters what region
         ec2 = Ec2Client.builder().region(region2).build();
-    }
-
-    public static AWS getInstance() {
-        if (instance == null) {
-            instance = new AWS();
-        }
-        return instance;
     }
 
 
@@ -103,7 +111,6 @@ public class AWS {
 //        }
 //        return instanceId;
 //    }
-
 
     public String createEC2(String script, String tagName, int numberOfInstances) {
         // Remove the keyName as we're not using a key pair
@@ -182,7 +189,7 @@ public class AWS {
     public List<Instance> getAllInstances() {
         DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder().build();
 
-        DescribeInstancesResponse describeInstancesResponse = null;
+        DescribeInstancesResponse describeInstancesResponse;
         try {
             describeInstancesResponse = ec2.describeInstances(describeInstancesRequest);
         } catch (Ec2Exception e) {
@@ -190,13 +197,12 @@ public class AWS {
             throw new RuntimeException("Could not retrieve instances", e);
         }
 
-
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
-    public List<Instance> getAllInstancesWithLabel(Label label) throws InterruptedException {
+    public List<Instance> getAllInstancesWithLabel(Label label) {
         DescribeInstancesRequest describeInstancesRequest =
                 DescribeInstancesRequest.builder()
                         .filters(Filter.builder()
@@ -209,10 +215,10 @@ public class AWS {
 
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
-    public List<String> getAllInstanceIdsWithLabel(Label label) throws InterruptedException {
+    public List<String> getAllInstanceIdsWithLabel(Label label) {
         DescribeInstancesRequest describeInstancesRequest =
                 DescribeInstancesRequest.builder()
                         .filters(Filter.builder()
@@ -226,7 +232,7 @@ public class AWS {
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
                 .map(Instance::instanceId) // Extract only the instance ID
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
     public void terminateInstance(String instanceId) {
@@ -266,7 +272,7 @@ public class AWS {
                         .imageId(IMAGE_AMI)
                         .maxCount(instancesToCreate)
                         .minCount(1)
-                        .keyName("vockey")
+                        .keyName("Hagar")
                         .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                         .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                         .build();
@@ -299,7 +305,7 @@ public class AWS {
 
                             return instanceId;
                         })
-                        .toList();
+                        .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
             }
         }
 
@@ -435,12 +441,13 @@ public class AWS {
     public void deleteAllObjectsFromBucket(String bucketName) {
         SdkIterable<S3Object> contents = listObjectsInBucket(bucketName);
 
-        Collection<ObjectIdentifier> keys = contents.stream()
+        // Replace toList() with Collectors.toList()
+        List<ObjectIdentifier> keys = contents.stream()
                 .map(content ->
                         ObjectIdentifier.builder()
                                 .key(content.key())
                                 .build())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList()
 
         Delete del = Delete.builder().objects(keys).build();
 
@@ -454,6 +461,7 @@ public class AWS {
         } catch (S3Exception ignored) {
         }
     }
+
 
     public void deleteBucket(String bucketName) {
         deleteAllObjectsFromBucket(bucketName);
@@ -551,10 +559,14 @@ public class AWS {
                 .dataType("String")
                 .build();
 
+        // Replace Map.of() with new HashMap<>()
+        Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
+        messageAttributes.put("FileId", fileIdAttribute);
+
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageBody(messageBody)
-                .messageAttributes(Map.of("FileId", fileIdAttribute)) // Add the fileId attribute
+                .messageAttributes(messageAttributes) // Use HashMap
                 .build();
 
         SendMessageResponse sendMessageResponse = sqs.sendMessage(sendMessageRequest);
@@ -565,36 +577,55 @@ public class AWS {
     }
 
 
+    public List<String> sendMessagesBatch(String queueUrl, List<String> messages) {
+        // Limit batch size to 10 messages, as SQS supports a max of 10 per batch
+        final int batchSize = 10;
+        List<String> sentMessageIds = new ArrayList<>();
 
+        for (int i = 0; i < messages.size(); i += batchSize) {
+            // Create a sublist for the current batch
+            List<String> batch = messages.subList(i, Math.min(i + batchSize, messages.size()));
 
+            // Create batch request entries
+            List<SendMessageBatchRequestEntry> entries = new ArrayList<>();
+            for (int j = 0; j < batch.size(); j++) {
+                entries.add(SendMessageBatchRequestEntry.builder()
+                        .id("msg-" + (i + j)) // Unique ID for each message in the batch
+                        .messageBody(batch.get(j))
+                        .build());
+            }
 
-//    public void sendMessageBatches(String queueUrl, List<String> messages, String messageId) { // check if needs to be synchronized
-//
-//        Iterator<String> msgIter = messages.iterator();
-//        while (msgIter.hasNext()) {
-//            List<SendMessageBatchRequestEntry> entries = new ArrayList<>();
-//
-//            // create batches of 10 entries (aws limitations)
-//            for (int i = 1; msgIter.hasNext() && i <= 10; i++ ) {
-//                entries.add(new SendMessageBatchRequestEntry("msg_" + i, msgIter.next()));
-//            }
-//
-//            SendMessageBatchRequest batchRequest = new SendMessageBatchRequest()
-//                .withQueueUrl(queueUrl)
-//                .withEntries(entries);
-//
-//            // send batch
-//            sqs.sendMessageBatch(batchRequest);
-//        }
-//    }
+            // Build and send the batch request
+            SendMessageBatchRequest batchRequest = SendMessageBatchRequest.builder()
+                    .queueUrl(queueUrl)
+                    .entries(entries)
+                    .build();
+
+            SendMessageBatchResponse response = sqs.sendMessageBatch(batchRequest);
+
+            // Collect the message IDs of successfully sent messages
+            response.successful().forEach(success -> sentMessageIds.add(success.id()));
+
+            // Handle failed messages
+            response.failed().forEach(failure -> {
+                System.err.printf("Failed to send message ID %s: %s%n", failure.id(), failure.message());
+            });
+            // Log after sending each batch
+            System.out.printf("Batch sent: %d messages (Batch %d to %d)%n",
+                    batch.size(), i + 1, Math.min(i + batchSize, messages.size()));
+        }
+
+        System.out.println("All messages sent in batches!");
+        return sentMessageIds;
+    }
 
 
     public List<Message> receiveMessages(String queueUrl) {
         // Build the ReceiveMessageRequest
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
-                .maxNumberOfMessages(10)
-                .waitTimeSeconds(20)
+                .maxNumberOfMessages(10) // Batch fetch up to 10 messages
+                .visibilityTimeout(visibilityTimeoutSeconds) // Set visibility timeout in seconds
                 .build();
 
         // Use the SQS client to receive messages
@@ -607,7 +638,8 @@ public class AWS {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .maxNumberOfMessages(1) // Fetch one message at a time
-                .waitTimeSeconds(10)
+                .visibilityTimeout(visibilityTimeoutSeconds)
+                .waitTimeSeconds(20)
                 .messageAttributeNames("All") // Include all message attributes
                 .build();
 

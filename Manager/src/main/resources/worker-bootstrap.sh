@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e # Exit immediately if a command exits with a non-zero status
+
 # Update package lists and install required dependencies
 sudo apt-get update -y
-sudo apt-get install -y default-jdk wget unzip awscli
+sudo apt-get install -y openjdk-8-jdk wget unzip awscli
 
 # Verify Java installation
 java -version
@@ -24,4 +26,5 @@ chmod +x worker.jar
 
 # Start the Worker node
 echo "Starting Worker node..."
-java -jar worker.jar
+java -jar worker.jar > worker.log 2>&1 &
+

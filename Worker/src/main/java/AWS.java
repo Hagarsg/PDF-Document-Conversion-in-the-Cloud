@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AWS {
 
@@ -39,6 +40,10 @@ public class AWS {
     private final String workerScriptPath = "worker-script";
     private final String managerJarPath = "manager.jar";
     private final String workerJarPath = "worker.jar";
+    private final int visibilityTimeoutSeconds = 10;
+//    private final int workerVisibilityTO = 10;
+//    private final int responseVisibilityTO = 10;
+//    private final int summaryVisibilityTO = 10;
 
 
 
@@ -184,7 +189,7 @@ public class AWS {
     public List<Instance> getAllInstances() {
         DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder().build();
 
-        DescribeInstancesResponse describeInstancesResponse = null;
+        DescribeInstancesResponse describeInstancesResponse;
         try {
             describeInstancesResponse = ec2.describeInstances(describeInstancesRequest);
         } catch (Ec2Exception e) {
@@ -192,13 +197,12 @@ public class AWS {
             throw new RuntimeException("Could not retrieve instances", e);
         }
 
-
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
-    public List<Instance> getAllInstancesWithLabel(Label label) throws InterruptedException {
+    public List<Instance> getAllInstancesWithLabel(Label label) {
         DescribeInstancesRequest describeInstancesRequest =
                 DescribeInstancesRequest.builder()
                         .filters(Filter.builder()
@@ -211,10 +215,10 @@ public class AWS {
 
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
-    public List<String> getAllInstanceIdsWithLabel(Label label) throws InterruptedException {
+    public List<String> getAllInstanceIdsWithLabel(Label label) {
         DescribeInstancesRequest describeInstancesRequest =
                 DescribeInstancesRequest.builder()
                         .filters(Filter.builder()
@@ -228,7 +232,7 @@ public class AWS {
         return describeInstancesResponse.reservations().stream()
                 .flatMap(r -> r.instances().stream())
                 .map(Instance::instanceId) // Extract only the instance ID
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
     }
 
     public void terminateInstance(String instanceId) {
@@ -268,7 +272,7 @@ public class AWS {
                         .imageId(IMAGE_AMI)
                         .maxCount(instancesToCreate)
                         .minCount(1)
-                        .keyName("vockey")
+                        .keyName("Hagar")
                         .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                         .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                         .build();
@@ -301,7 +305,7 @@ public class AWS {
 
                             return instanceId;
                         })
-                        .toList();
+                        .collect(Collectors.toList()); // Use Collectors.toList() instead of toList()
             }
         }
 
@@ -437,12 +441,13 @@ public class AWS {
     public void deleteAllObjectsFromBucket(String bucketName) {
         SdkIterable<S3Object> contents = listObjectsInBucket(bucketName);
 
-        Collection<ObjectIdentifier> keys = contents.stream()
+        // Replace toList() with Collectors.toList()
+        List<ObjectIdentifier> keys = contents.stream()
                 .map(content ->
                         ObjectIdentifier.builder()
                                 .key(content.key())
                                 .build())
-                .toList();
+                .collect(Collectors.toList()); // Use Collectors.toList()
 
         Delete del = Delete.builder().objects(keys).build();
 
@@ -456,6 +461,7 @@ public class AWS {
         } catch (S3Exception ignored) {
         }
     }
+
 
     public void deleteBucket(String bucketName) {
         deleteAllObjectsFromBucket(bucketName);
@@ -553,10 +559,14 @@ public class AWS {
                 .dataType("String")
                 .build();
 
+        // Replace Map.of() with new HashMap<>()
+        Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
+        messageAttributes.put("FileId", fileIdAttribute);
+
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .messageBody(messageBody)
-                .messageAttributes(Map.of("FileId", fileIdAttribute)) // Add the fileId attribute
+                .messageAttributes(messageAttributes) // Use HashMap
                 .build();
 
         SendMessageResponse sendMessageResponse = sqs.sendMessage(sendMessageRequest);
@@ -614,8 +624,8 @@ public class AWS {
         // Build the ReceiveMessageRequest
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
-                .maxNumberOfMessages(10)
-                .waitTimeSeconds(20)
+                .maxNumberOfMessages(10) // Batch fetch up to 10 messages
+                .visibilityTimeout(visibilityTimeoutSeconds) // Set visibility timeout in seconds
                 .build();
 
         // Use the SQS client to receive messages
@@ -628,7 +638,8 @@ public class AWS {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .maxNumberOfMessages(1) // Fetch one message at a time
-                .waitTimeSeconds(10)
+                .visibilityTimeout(visibilityTimeoutSeconds)
+                .waitTimeSeconds(20)
                 .messageAttributeNames("All") // Include all message attributes
                 .build();
 
