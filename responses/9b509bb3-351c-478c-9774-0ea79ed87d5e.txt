@@ -1,0 +1,4 @@
+ToImage	http://www.cateringbyprovisions.com/wp-content/uploads/2014/03/Passover-Menu-20141.pdf	Error processing task: Failed to download PDF. HTTP Status: 404
+ToImage	http://www.joi.org/motherscircle/ShalomSesamePassover_MC_JOI_2013.pdf	Error processing task: Read timed out
+ToImage	http://www.mortonwilliams.com/Easter-Passover_Menu_2014.pdf	Error processing task: Failed to download PDF. HTTP Status: 301
+ToImage	http://www.theparkwaydeli.com/Menus/PassoverDinner.pdf	Error processing task: Failed to download PDF. HTTP Status: 404

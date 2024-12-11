@@ -1,0 +1,26 @@
+ToText	http://children.cccm.com/OTTeacherGuidePDF/CUROT038.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://velveteenrabbi.com/VRHaggadah.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.morashasyllabus.com/class/The%20Passover%20Seder.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.russanddaughters.com/userfiles/files/PASSOVER%20MENU%202013%20one%20page.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.federationcja.org/media/mediaContent/haggadah_e.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.elizabar.com/assets/pdfs/pascater11.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.joi.org/motherscircle/ShalomSesamePassover_MC_JOI_2013.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.cateringbyprovisions.com/wp-content/uploads/2014/03/Passover-Menu-20141.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.maxandbennys.com/MENU/Passover%202013%20MENU.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.chj-sarasota.org/2014_Seder_Invite_for_Connection_Final.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.travis.org/sites/default/files/Sermon-Series/111608.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.bagelworld.ca/2014passoverordersheet.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://rcdow.org.uk/att/files/faith/catechesis/eucharist/passoverguidelines.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://yahweh.com/pdf/Booklet_Passover.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.wildfirerestaurant.com/sites/default/files/F%20Passover%20Club%20Menu%204.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.uuja.org/holidays/lit/Revised_UU_Version_Humanist_Haggadah_061704.pdf	results/f4789c99-811e-4491-94f7-ae7897c2f0a7
+ToImage	http://www.chosengarden.com/images/Menu-Passover.pdf	results/e33f7360-2619-4fab-ba78-9ea3b0b3bbf0
+ToImage	http://ramahdarom.org/wp-content/uploads/2013/03/passover-book-v10_website.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.fbci.org/ministries/isra_docs/Passover.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	https://www.jewishlibraries.org/main/Portals/0/AJL_Assets/documents/bib_bank/PassoverResources.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.theisraelofgod.com/Text%20Lessons/Is%20this%20not%20the%20Lord's%20Passover.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://elearning.huc.edu/jhvrc/docs/JQ%20Haggadah%20Final%20no%20pics%204%209%2008.pdf	Error processing task: null
+ToHTML	http://foodmannosh.com/wp-content/uploads/2013/02/Matzolah-article-Aus-Jewish-Outlook2.pdf	Error processing task: null
+ToText	http://www.dgsdelicatessen.com/assets/DGS_Passover_Menu.pdf	results/fb5acd75-f0b2-4299-8b68-20a50718e3f7
+ToImage	http://www.ccss.org/Resources/Documents/Passover%20_%20Easter%20in%20Public%20Schools.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.adventurevalleydaycamp.com/Passover.pdf	Error processing task: Error: End-of-File, expected line
