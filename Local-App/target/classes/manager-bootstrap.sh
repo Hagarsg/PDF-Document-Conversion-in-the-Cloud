@@ -25,12 +25,3 @@ LOCAL_APP_DIR="/home/ec2-user/app"
 mkdir -p $LOCAL_APP_DIR
 cd $LOCAL_APP_DIR
 
-# Download the Manager JAR file from S3
-aws s3 cp s3://$S3_BUCKET/$S3_MANAGER_JAR ./manager.jar
-
-# Ensure the JAR file is executable
-chmod +x manager.jar
-
-# Start the Manager node
-echo "Starting Manager node..."
-java -jar manager.jar > manager.log 2>&1 &

@@ -119,7 +119,7 @@ public class AWS {
                 .imageId(IMAGE_AMI)
                 .maxCount(numberOfInstances)
                 .minCount(1)
-                .keyName("vockey")
+                .keyName("yuvi")
                 .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                 .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                 .build();
@@ -272,7 +272,7 @@ public class AWS {
                         .imageId(IMAGE_AMI)
                         .maxCount(instancesToCreate)
                         .minCount(1)
-                        .keyName("Yuvi")
+                        .keyName("vockey")
                         .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
                         .userData(Base64.getEncoder().encodeToString(script.getBytes()))
                         .build();
