@@ -1,4 +1,4 @@
-# Update and install Java and AWS CLI
+# Update and install Java and com.example.com.example.com.example.AWS CLI
 sudo yum update -y
 sudo yum install -y java-1.8.0-openjdk aws-cli
 

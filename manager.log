@@ -1,11 +1,20 @@
 
-
-# Download the Manager JAR file from S3
-aws s3 cp s3://$S3_BUCKET/$S3_MANAGER_JAR ./manager.jar
-
-# Ensure the JAR file is executable
-chmod +x manager.jar
-
-# Start the Manager node
-echo "Starting Manager node..."
-java -jar manager.jar > manager.log 2>&1 &
+                        "# Capture the PID of the background process\n" +
+                        "MANAGER_PID=$!\n" +
+                        "\n" +
+                        "# Wait for a moment to ensure the manager is running\n" +
+                        "sleep 2\n" +
+                        "\n" +
+                        "# Check if the manager process is running\n" +
+                        "if ps aux | grep \"[j]ava -jar manager.jar\" > /dev/null; then\n" +
+                        "    echo \"manager.jar is running (PID: $MANAGER_PID)\"\n" +
+                        "else\n" +
+                        "    echo \"Failed to start manager.jar\"\n" +
+                        "    exit 1\n" +
+                        "fi\n" +
+                        "\n" +
+                        "# Optionally, display the Java process status\n" +
+                        "ps aux | grep java\n" +
+                        "\n" +
+                        "# End of script\n" +
+                        "echo \"Script execution completed.\"\n"

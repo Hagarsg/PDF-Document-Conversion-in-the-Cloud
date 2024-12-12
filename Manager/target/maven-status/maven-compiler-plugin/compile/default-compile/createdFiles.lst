@@ -1,7 +1,6 @@
-Manager$ProcessInputTask.class
-AWS$Label.class
-Manager$ProcessResponseTask.class
-AWS.class
-Manager.class
+com/example/Manager$ProcessInputTask.class
+com/example/Manager.class
+com/example/Manager$ProcessResponseTask.class
+com/example/AWS.class
 ActorThreadPool.class
-com/yourcompany/Main.class
+com/example/AWS$Label.class

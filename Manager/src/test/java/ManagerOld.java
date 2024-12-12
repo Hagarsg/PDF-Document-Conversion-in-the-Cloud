@@ -3,7 +3,7 @@
 ////import com.amazonaws.services.sqs.model.SendMessageBatchRequest;
 ////import com.amazonaws.services.sqs.model.SendMessageBatchRequestEntry;
 //
-////import API.AWS;
+////import API.com.example.AWS;
 //import software.amazon.awssdk.services.ec2.model.Instance;
 //import software.amazon.awssdk.services.s3.model.S3Object;
 //import software.amazon.awssdk.services.sqs.model.Message;
@@ -16,7 +16,7 @@
 //
 //
 //public class ManagerOld {
-//    final static AWS aws = AWS.getInstance();
+//    final static com.example.AWS aws = com.example.AWS.getInstance();
 //    private static final int MAX_WORKERS = 8;
 //    private static volatile boolean terminate = false;
 //    private static String inputQueueUrl;
@@ -144,7 +144,7 @@
 //
 //    List<Instance> runningWorkers = null;  // Get the count of currently running workers
 //    try {
-//        runningWorkers = aws.getAllInstancesWithLabel(AWS.Label.Worker);
+//        runningWorkers = aws.getAllInstancesWithLabel(com.example.AWS.Label.Worker);
 //    } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //    }
@@ -161,7 +161,7 @@
 //            System.err.println("File does not exist: " + filePath);
 //            return;
 //        }
-//        aws.uploadFileToS3(aws.getScriptPath(AWS.Label.Worker), file);
+//        aws.uploadFileToS3(aws.getScriptPath(com.example.AWS.Label.Worker), file);
 //        String script =  """
 //                    #!/bin/bash
 //                    aws s3 cp s3://yuval-hagar-best-bucket/worker-script/worker-bootstrap.sh /tmp/worker-bootstrap.sh
@@ -468,11 +468,11 @@
 //    terminateAllWorkers();
 //    List<String> managerIds = null;
 //    try {
-//        managerIds = aws.getAllInstanceIdsWithLabel(AWS.Label.Manager);
+//        managerIds = aws.getAllInstanceIdsWithLabel(com.example.AWS.Label.com.example.Manager);
 //    } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //    }
-//    aws.terminateInstance(managerIds.get(0)); //terminate the Manager
+//    aws.terminateInstance(managerIds.get(0)); //terminate the com.example.Manager
 //}
 //
 //private static void generateAllPendingSummaries() {
@@ -488,7 +488,7 @@
 //    System.out.println("Terminating all worker instances...");
 //    List<String> workerIds = null;
 //    try {
-//        workerIds = aws.getAllInstanceIdsWithLabel(AWS.Label.Worker);
+//        workerIds = aws.getAllInstanceIdsWithLabel(com.example.AWS.Label.Worker);
 //    } catch (InterruptedException e) {
 //        throw new RuntimeException(e);
 //    }
@@ -501,7 +501,7 @@
 //public static boolean isTeminateMessage(String messageBody){
 //    if (messageBody.equals("terminate")){
 //        terminate = true;
-//        System.out.println("Manager got terminate message");
+//        System.out.println("com.example.Manager got terminate message");
 //        return true;
 //    }
 //    return false;

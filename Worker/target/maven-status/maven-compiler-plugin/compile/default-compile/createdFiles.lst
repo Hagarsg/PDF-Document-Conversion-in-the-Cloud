@@ -1,3 +1,3 @@
-AWS$Label.class
-Worker.class
-AWS.class
+com/example/AWS.class
+com/example/AWS$Label.class
+com/example/Worker.class
