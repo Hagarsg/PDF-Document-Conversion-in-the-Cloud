@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="17:13">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/com/example/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/com/example/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/java/com/example/LocalApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/java/com/example/LocalApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/resources/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/resources/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/src/main/resources/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/src/main/resources/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/LocalApp-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/LocalApp-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/classes/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/classes/manager-bootstrap.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Local-App/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Local-App/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/com/example/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/com/example/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/target/original-Manager-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/target/original-Manager-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/com/example/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/com/example/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/src/main/java/com/example/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/src/main/java/com/example/Worker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Worker/target/original-Worker-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Worker/target/original-Worker-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newInputFile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/newInputFile.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputFile.html" beforeDir="false" afterPath="$PROJECT_DIR$/outputFile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/outputFile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/outputFile.txt" afterDir="false" />
+    </list>
+    <list id="b850f72c-ad11-4425-8337-3b90ab878ddf" name="Changes by yuval" comment="">
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/com/example/AWS.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/com/example/AWS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Hagarsg&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Hagarsg/PDF-Document-Conversion-in-the-Cloud.git&quot;,
+    &quot;accountId&quot;: &quot;5ac567d4-e99b-415d-b618-82d71c78d3e2&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;Hagarsg&quot;,
+    &quot;repository&quot;: &quot;PDF-Document-Conversion-in-the-Cloud&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java">
+      <ranges>
+        <range start1="0" end1="4" start2="0" end2="1" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="5" end1="6" start2="2" end2="2" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="34" end1="35" start2="30" end2="30" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="45" end1="45" start2="40" end2="41" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="56" end1="56" start2="52" end2="66" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="60" end1="61" start2="70" end2="71" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="65" end1="66" start2="75" end2="76" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="87" end1="99" start2="97" end2="97" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="102" end1="119" start2="100" end2="101" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="120" end1="261" start2="102" end2="102" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="264" end1="265" start2="105" end2="106" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="267" end1="269" start2="108" end2="108" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="271" end1="277" start2="110" end2="119" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="278" end1="280" start2="120" end2="122" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="281" end1="294" start2="123" end2="126" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="295" end1="305" start2="127" end2="137" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="306" end1="310" start2="138" end2="143" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="311" end1="321" start2="144" end2="154" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="322" end1="326" start2="155" end2="155" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="341" end1="354" start2="170" end2="170" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="378" end1="379" start2="194" end2="194" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="383" end1="395" start2="198" end2="200" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="398" end1="424" start2="203" end2="203" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="425" end1="426" start2="204" end2="206" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="428" end1="435" start2="208" end2="209" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="437" end1="447" start2="211" end2="211" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="458" end1="463" start2="222" end2="247" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="464" end1="465" start2="248" end2="249" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="467" end1="467" start2="251" end2="254" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="478" end1="480" start2="265" end2="266" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="485" end1="485" start2="271" end2="422" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="486" end1="506" start2="423" end2="423" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/Manager/src/main/java/com/example/AWS.java">
+      <ranges>
+        <range start1="27" end1="28" start2="27" end2="28" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="55" end1="62" start2="55" end2="56" changelist="da4fff48-ff34-479f-9edb-4df02f727319" />
+        <range start1="75" end1="114" start2="69" end2="69" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+        <range start1="507" end1="507" start2="462" end2="490" changelist="b850f72c-ad11-4425-8337-3b90ab878ddf" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2pFdtpfJJ6oaJ37TAbdxyqWXuX8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LocalApplication.executor": "Run",
+    "Application.Manager.executor": "Run",
+    "Application.ManagerOld.executor": "Run",
+    "Application.Worker.executor": "Run",
+    "Application.WorkerTest.executor": "Run",
+    "Application.workerTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "#1 on newBranch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/Local-App/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.sync",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Local-App/src/main/resources" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java/com" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Local-App/src/main/resources" />
+      <recent name="$PROJECT_DIR$/Manager/src/main/resources" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Local-App/target" />
+      <recent name="$PROJECT_DIR$/Local-App/src/main/java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Manager">
+    <configuration name="LocalApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="homebrew-22" />
+      <option name="MAIN_CLASS_NAME" value="com.example.LocalApplication" />
+      <module name="Local-App" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Manager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.Manager" />
+      <module name="Manager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Worker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="/opt/homebrew/Cellar/openjdk/23.0.1/libexec/openjdk.jdk/Contents/Home" />
+      <option name="MAIN_CLASS_NAME" value="com.example.Worker" />
+      <module name="Worker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Manager" />
+      <item itemvalue="Application.Worker" />
+      <item itemvalue="Application.LocalApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Worker" />
+        <item itemvalue="Application.Manager" />
+        <item itemvalue="Application.LocalApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da4fff48-ff34-479f-9edb-4df02f727319" name="Changes" comment="" />
+      <created>1732365974845</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732365974845</updated>
+      <workItem from="1732365975915" duration="5746000" />
+      <workItem from="1732434991933" duration="227000" />
+      <workItem from="1732872331334" duration="4396000" />
+      <workItem from="1732985182553" duration="22506000" />
+      <workItem from="1733212138203" duration="177000" />
+      <workItem from="1733213267998" duration="6726000" />
+      <workItem from="1733240471460" duration="19409000" />
+      <workItem from="1733380330390" duration="95000" />
+      <workItem from="1733380429591" duration="1429000" />
+      <workItem from="1733381873185" duration="116000" />
+      <workItem from="1733381993851" duration="17154000" />
+      <workItem from="1733409003938" duration="513000" />
+      <workItem from="1733409532263" duration="59981000" />
+      <workItem from="1733756898052" duration="15506000" />
+      <workItem from="1733775369541" duration="39550000" />
+      <workItem from="1734016423838" duration="19763000" />
+    </task>
+    <task id="LOCAL-00001" summary="hihi">
+      <option name="closed" value="true" />
+      <created>1732997735598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732997735598</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733240527739</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733240527739</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241018771</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241018771</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733241066575</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733241066575</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updated">
+      <option name="closed" value="true" />
+      <created>1733335746927</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733335746927</updated>
+    </task>
+    <task id="LOCAL-00006" summary="8:25">
+      <option name="closed" value="true" />
+      <created>1733379910718</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733379910718</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changes by yuval">
+      <option name="closed" value="true" />
+      <created>1733403457859</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733403457859</updated>
+    </task>
+    <task id="LOCAL-00008" summary="15:27">
+      <option name="closed" value="true" />
+      <created>1733405263178</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733405263178</updated>
+    </task>
+    <task id="LOCAL-00009" summary="15:27">
+      <option name="closed" value="true" />
+      <created>1733413085163</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733413085163</updated>
+    </task>
+    <task id="LOCAL-00010" summary="10:50">
+      <option name="closed" value="true" />
+      <created>1733734207563</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733734207563</updated>
+    </task>
+    <task id="LOCAL-00011" summary="17:10">
+      <option name="closed" value="true" />
+      <created>1733757040744</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1733757040744</updated>
+    </task>
+    <task id="LOCAL-00012" summary="22:15">
+      <option name="closed" value="true" />
+      <created>1733775395556</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733775395556</updated>
+    </task>
+    <task id="LOCAL-00013" summary="22:15">
+      <option name="closed" value="true" />
+      <created>1733923409963</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1733923409963</updated>
+    </task>
+    <task id="LOCAL-00014" summary="22:15">
+      <option name="closed" value="true" />
+      <created>1733923518926</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733923518926</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changes by yuval">
+      <option name="closed" value="true" />
+      <created>1733926621591</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733926621591</updated>
+    </task>
+    <task id="LOCAL-00016" summary="17:13">
+      <option name="closed" value="true" />
+      <created>1734016461866</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1734016461866</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="hihi" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="8:25" />
+    <MESSAGE value="15:27" />
+    <MESSAGE value="10:50" />
+    <MESSAGE value="17:10" />
+    <MESSAGE value="22:15" />
+    <MESSAGE value="Changes by yuval" />
+    <MESSAGE value="17:13" />
+    <option name="LAST_COMMIT_MESSAGE" value="17:13" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Manager/src/main/java/com/example/Manager.java</url>
+          <line>352</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

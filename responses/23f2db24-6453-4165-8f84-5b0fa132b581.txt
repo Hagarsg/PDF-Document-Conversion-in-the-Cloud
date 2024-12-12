@@ -1,0 +1,32 @@
+ToImage	http://www.shef.ac.uk/union/get-involved/inter-faith/files/Passover%20-%20Jewish%20Recipes.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.joi.org/motherscircle/ShalomSesamePassover_MC_JOI_2013.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.cateringbyprovisions.com/wp-content/uploads/2014/03/Passover-Menu-20141.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.travis.org/sites/default/files/Sermon-Series/111608.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.godandscience.org/apologetics/haggadah.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.russanddaughters.com/userfiles/files/PASSOVER%20MENU%202013%20one%20page.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://suziesgrill.com/Home/SGPassover2013.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.morashasyllabus.com/class/The%20Passover%20Seder.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://children.cccm.com/OTTeacherGuidePDF/CUROT038.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://harshalom.org/wp-content/uploads/2013/06/Passover.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.bagelworld.ca/2014passoverordersheet.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.wildfirerestaurant.com/sites/default/files/F%20Passover%20Club%20Menu%204.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.golombeckspice.com/resources_content/Passover%20and%20Spices.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://velveteenrabbi.com/VRHaggadah.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.bgemc.org/2014_Pesach_Information_Booking_sheet.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.chj-sarasota.org/2014_Seder_Invite_for_Connection_Final.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.elizabar.com/assets/pdfs/pascater11.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.truah.org/images/stories/PDFs/Pesach-and-Slavery.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.lfix.co.uk/oliver/christian/passover.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.chosengarden.com/images/Menu-Passover.pdf	results/5595f916-f1f2-46d9-b10f-0e2687c47cb8
+ToImage	http://www.mortonwilliams.com/Easter-Passover_Menu_2014.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.uuja.org/holidays/lit/Revised_UU_Version_Humanist_Haggadah_061704.pdf	results/9605e585-508d-4521-b2ca-06a18278fb9b
+ToImage	http://www.theparkwaydeli.com/Menus/PassoverDinner.pdf	Error processing task: EOF reached while reading
+ToText	http://www.blackjews.org/Essays/Harding%20of%20the%20Heart%20%20A%20Passover%20Sermon.pdf	results/3ec41c4a-d31d-4654-8a2b-0da473d80e4c
+ToImage	http://www.jewishvoice.org/assets/pdfs/08-03-01-03-haggadah.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://hcmlouisville.org/CMS/Resources/seder_flyer_2014.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://www.bristolfarms.com/catering/2014-passover.pdf	Error processing task: Error: End-of-File, expected line
+ToHTML	http://essentialchocolate.com/pdf/Passover%20ORDER%20FORM.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.rabbirocketpower.com/excerpt_passover.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.deegray.com/sitebuildercontent/sitebuilderfiles/handouts4thcupver4122109.pdf	Error processing task: Error: End-of-File, expected line
+ToText	http://www.gojcc.org/wp-content/uploads/passover-cookbook.pdf	Error processing task: Error: End-of-File, expected line
+ToImage	http://www.nlcf.org/library/documents/PassoverSeder.pdf	Error processing task: Error: End-of-File, expected line
