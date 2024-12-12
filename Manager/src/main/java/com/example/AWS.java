@@ -25,7 +25,7 @@ public class AWS {
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
-    private static volatile AWS instance;
+    private static final AWS instance = new AWS();
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
@@ -53,13 +53,7 @@ public class AWS {
 
 
     public static AWS getInstance() {
-        if (instance == null) {
-            synchronized (AWS.class) {
-                if (instance == null) {
-                    instance = new AWS();
-                }
-            }
-        }
+
         return instance;
     }
 

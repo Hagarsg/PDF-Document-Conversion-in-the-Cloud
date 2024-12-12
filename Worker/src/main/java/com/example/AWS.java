@@ -1,5 +1,4 @@
 package com.example;
-
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.regions.Region;
@@ -25,7 +24,7 @@ public class AWS {
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
-    private static volatile AWS instance;
+    private static final AWS instance = new AWS();
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
@@ -53,13 +52,7 @@ public class AWS {
 
 
     public static AWS getInstance() {
-        if (instance == null) {
-            synchronized (AWS.class) {
-                if (instance == null) {
-                    instance = new AWS();
-                }
-            }
-        }
+
         return instance;
     }
 
@@ -73,45 +66,6 @@ public class AWS {
 
     //////////////////////////////////////////  EC2
 
-//    // EC2
-//    public String createEC2(String script, String tagName, int numberOfInstances) {
-//        RunInstancesRequest runRequest = (RunInstancesRequest) RunInstancesRequest.builder()
-//                .instanceType(InstanceType.M4_LARGE)
-//                .imageId(IMAGE_AMI)
-//                .maxCount(numberOfInstances)
-//                .minCount(1)
-//                .keyName("vockey")
-//                .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
-//                .userData(Base64.getEncoder().encodeToString((script).getBytes()))
-//                .build();
-//
-//
-//        RunInstancesResponse response = ec2.runInstances(runRequest);
-//
-//        String instanceId = response.instances().get(0).instanceId();
-//
-//        Tag tag = Tag.builder()
-//                .key("Name")
-//                .value(tagName)
-//                .build();
-//
-//        CreateTagsRequest tagRequest = (CreateTagsRequest) CreateTagsRequest.builder()
-//                .resources(instanceId)
-//                .tags(tag)
-//                .build();
-//
-//        try {
-//            ec2.createTags(tagRequest);
-//            System.out.printf(
-//                    "[DEBUG] Successfully started EC2 instance %s based on AMI %s\n",
-//                    instanceId, IMAGE_AMI);
-//
-//        } catch (Ec2Exception e) {
-//            System.err.println("[ERROR] " + e.getMessage());
-//            System.exit(1);
-//        }
-//        return instanceId;
-//    }
 
     public String createEC2(String script, String tagName, int numberOfInstances) {
         // Remove the keyName as we're not using a key pair
@@ -626,11 +580,17 @@ public class AWS {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .maxNumberOfMessages(10) // Batch fetch up to 10 messages
+                .waitTimeSeconds(10) // Long polling for 10 seconds
                 .visibilityTimeout(visibilityTimeoutSeconds) // Set visibility timeout in seconds
                 .build();
 
         // Use the SQS client to receive messages
-        return sqs.receiveMessage(receiveMessageRequest).messages();
+        List<Message> messages = sqs.receiveMessage(receiveMessageRequest).messages();
+        if (messages.isEmpty()) {
+            System.out.println("No messages available in the queue.");
+            return null; // No message received
+        }
+        return messages;
     }
 
 
@@ -659,14 +619,12 @@ public class AWS {
                 : null;
 
         if (fileId != null && fileId.equals(appFileId)) {
-            System.out.println("Processing message: " + message.body());
             sqs.deleteMessage(DeleteMessageRequest.builder()
                     .queueUrl(queueUrl)
                     .receiptHandle(message.receiptHandle())
                     .build());
             return message;
         } else {
-            System.out.println("Returning message to the queue. FileId: " + fileId);
             sqs.changeMessageVisibility(ChangeMessageVisibilityRequest.builder()
                     .queueUrl(queueUrl)
                     .receiptHandle(message.receiptHandle())
@@ -697,17 +655,13 @@ public class AWS {
 
     public void deleteMessage(String queueUrl, Message message) {
         String receiptHandle = message.receiptHandle();
-        System.out.println("Attempting to delete message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl);
 
         try {
             sqs.deleteMessage(DeleteMessageRequest.builder()
                     .queueUrl(queueUrl)
                     .receiptHandle(receiptHandle)
                     .build());
-            System.out.println("Successfully deleted message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl);
         } catch (Exception e) {
-            System.out.println("Failed to delete message with ReceiptHandle: " + receiptHandle + " from queue: " + queueUrl
-                    + ". Error: " + e.getMessage());
         }
     }
     /////////// Getter Methods

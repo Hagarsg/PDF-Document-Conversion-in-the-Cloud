@@ -10,7 +10,6 @@ import java.net.URL;
 import java.time.Instant;
 import java.util.List;
 import java.util.Scanner;
-
 public class LocalApplication {
 
     final static AWS aws = AWS.getInstance();
@@ -22,8 +21,6 @@ public class LocalApplication {
 
 
     public static void main(String[] args) {// args = [inFilePath, outFilePath, tasksPerWorker, -t (terminate, optional)]
-        args = new String[]{"/Users/hagarsamimigolan/GitProject/Yuval&Hagar/newInputFile.txt",
-                "/Users/hagarsamimigolan/GitProject/Yuval&Hagar/outputFile.html", "10"};
         if (args.length < 3) {
             System.out.println("Usage: com.example.LocalApplication <inputFilePath> <outputFilePath> [tasksPerWorker] [-t]");
             return;
@@ -83,8 +80,6 @@ public class LocalApplication {
                 // Dynamically locate resources
                 File managerJar = getResourceFile("Manager-1.0-SNAPSHOT.jar");
                 File workerJar = getResourceFile("Worker-1.0-SNAPSHOT.jar");
-//                File managerBootstrapScript = getResourceFile("manager-bootstrap.sh");
-//                File workerBootstrapScript = getResourceFile("worker-bootstrap.sh");
 
                 if (managerJar == null || workerJar == null) {
                     System.err.println("Required resources are missing. Aborting setup.");
@@ -94,8 +89,6 @@ public class LocalApplication {
                 // Upload files to S3
                 aws.uploadFileToS3("manager.jar", managerJar);
                 aws.uploadFileToS3("worker.jar", workerJar);
-                //aws.uploadFileToS3("manager-bootstrap.sh", managerBootstrapScript);
-                //aws.uploadFileToS3("worker-bootstrap.sh", workerBootstrapScript);
 
                 // EC2 bootstrap script for Manager
                 String managerScript = "#!/bin/bash\n" +
@@ -166,73 +159,6 @@ public class LocalApplication {
     }
 
 
-
-    //Create Buckets, Create Queues, Upload JARs to S3
-//    private static void setup() {
-//        try {
-//            List<Instance> list = aws.getAllInstancesWithLabel(com.example.AWS.Label.Manager);
-//            if (list.isEmpty()) { // if manager is not active
-//                aws.createBucketIfNotExists(aws.getBucketName());
-//                inputQueueUrl = aws.createQueue(aws.getInputQueueName());
-//                for (int i = 1; i <= aws.getSummaryLimit(); i++) {
-//                    String name = "summaryQueue_" + i;
-//                    aws.createQueue(name);
-//                }
-//
-//                // Dynamically locate manager jar file locally
-//                String managerJarPath = com.example.LocalApplication.class.getClassLoader()
-//                        .getResource("Manager-1.0-SNAPSHOT.jar")
-//                        .getPath();
-//                File managerJar = new File(managerJarPath);
-//
-//                if (!managerJar.exists()) {
-//                    System.err.println("Manager JAR does not exist: " + managerJar.getAbsolutePath());
-//                    return;
-//                }
-//
-//                // Upload manager jar to S3
-//                aws.uploadFileToS3(aws.getJarPath(com.example.AWS.Label.Manager), managerJar);
-//
-//                // Dynamically locate worker jar file locally
-//                String workerJarPath = com.example.LocalApplication.class.getClassLoader()
-//                        .getResource("Worker-1.0-SNAPSHOT.jar")
-//                        .getPath();
-//                File workerJar = new File(workerJarPath);
-//
-//                if (!workerJar.exists()) {
-//                    System.err.println("Worker JAR does not exist: " + workerJar.getAbsolutePath());
-//                    return;
-//                }
-//
-//                // Upload the Worker JAR to S3
-//                aws.uploadFileToS3(aws.getJarPath(com.example.AWS.Label.Worker), workerJar);
-//
-//                // Dynamically locate manager-bootstrap.sh
-//                String filePath = com.example.LocalApplication.class.getClassLoader()
-//                        .getResource("manager-bootstrap.sh")
-//                        .getPath();
-//                File file = new File(filePath);
-//
-//                if (!file.exists()) {
-//                    System.err.println("File does not exist: " + filePath);
-//                    return;
-//                }
-//
-//                // upload to S3
-//                aws.uploadFileToS3(aws.getScriptPath(com.example.AWS.Label.Manager), file);
-//                String script = "#!/bin/bash" +
-//                    "aws s3 cp s3://yuval-hagar-best-bucket/manager-script/manager-bootstrap.sh /tmp/manager-bootstrap.sh"
-//                     + "chmod +x /tmp/manager-bootstrap.sh"
-//                     + "/tmp/manager-bootstrap.sh";
-//                aws.createEC2(script, "Manager", 1); // create manager EC2
-//            }
-//        } catch (InterruptedException e) {
-//            System.err.println("Error occurred while retrieving instances: " + e.getMessage());
-//            Thread.currentThread().interrupt();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     private static void summaryToHTML(File summaryFile) {
         File htmlOutputFile = new File(outFilePath);

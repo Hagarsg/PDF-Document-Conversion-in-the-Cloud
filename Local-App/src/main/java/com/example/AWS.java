@@ -25,7 +25,7 @@ public class AWS {
     public Region region1 = Region.US_WEST_2;
     public Region region2 = Region.US_EAST_1;
     private final int ec2RegionLimit = 9;
-    private static volatile AWS instance;
+    private static final AWS instance = new AWS();
     private final S3Client s3;
     private final SqsClient sqs;
     private final Ec2Client ec2;
@@ -42,24 +42,17 @@ public class AWS {
     private final String managerJarPath = "manager.jar";
     private final String workerJarPath = "worker.jar";
     private final int visibilityTimeoutSeconds = 10;
-//    private final int workerVisibilityTO = 10;
-//    private final int responseVisibilityTO = 10;
-//    private final int summaryVisibilityTO = 10;
-
-
-
-
     private final int summaryLimit = 10;
 
 
     public static AWS getInstance() {
-        if (instance == null) {
-            synchronized (AWS.class) {
-                if (instance == null) {
-                    instance = new AWS();
-                }
-            }
-        }
+//        if (instance == null) {
+//            synchronized (AWS.class) {
+//                if (instance == null) {
+//                    instance = new AWS();
+//                }
+//            }
+//        }
         return instance;
     }
 
@@ -71,47 +64,6 @@ public class AWS {
     }
 
 
-    //////////////////////////////////////////  EC2
-
-//    // EC2
-//    public String createEC2(String script, String tagName, int numberOfInstances) {
-//        RunInstancesRequest runRequest = (RunInstancesRequest) RunInstancesRequest.builder()
-//                .instanceType(InstanceType.M4_LARGE)
-//                .imageId(IMAGE_AMI)
-//                .maxCount(numberOfInstances)
-//                .minCount(1)
-//                .keyName("vockey")
-//                .iamInstanceProfile(IamInstanceProfileSpecification.builder().name("LabInstanceProfile").build())
-//                .userData(Base64.getEncoder().encodeToString((script).getBytes()))
-//                .build();
-//
-//
-//        RunInstancesResponse response = ec2.runInstances(runRequest);
-//
-//        String instanceId = response.instances().get(0).instanceId();
-//
-//        Tag tag = Tag.builder()
-//                .key("Name")
-//                .value(tagName)
-//                .build();
-//
-//        CreateTagsRequest tagRequest = (CreateTagsRequest) CreateTagsRequest.builder()
-//                .resources(instanceId)
-//                .tags(tag)
-//                .build();
-//
-//        try {
-//            ec2.createTags(tagRequest);
-//            System.out.printf(
-//                    "[DEBUG] Successfully started EC2 instance %s based on AMI %s\n",
-//                    instanceId, IMAGE_AMI);
-//
-//        } catch (Ec2Exception e) {
-//            System.err.println("[ERROR] " + e.getMessage());
-//            System.exit(1);
-//        }
-//        return instanceId;
-//    }
 
     public String createEC2(String script, String tagName, int numberOfInstances) {
         // Remove the keyName as we're not using a key pair

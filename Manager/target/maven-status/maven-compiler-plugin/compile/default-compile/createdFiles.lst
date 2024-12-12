@@ -1,6 +1,4 @@
 com/example/Manager$ProcessInputTask.class
 com/example/Manager.class
-com/example/Manager$ProcessResponseTask.class
 com/example/AWS.class
-ActorThreadPool.class
 com/example/AWS$Label.class

@@ -1,9 +1,0 @@
-# Update and install Java and com.example.com.example.com.example.AWS CLI
-sudo yum update -y
-sudo yum install -y java-1.8.0-openjdk aws-cli
-
-
-# see if we can download jar to current ec2 (and not from S3)
-aws s3 cp s3://your-bucket-name/manager.jar /home/ec2-user/
-aws s3 cp s3://your-bucket-name/worker.jar /home/ec2-user/
-aws s3 cp s3://your-bucket-name/ocr-library.jar /home/ec2-user/
